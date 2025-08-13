@@ -1,0 +1,140 @@
+---
+title: "Hacia una bioestadística más completa"
+author: "Br. Miguel Rojas"
+date: "15 de agosto de 2025"
+output:
+  xaringan::moon_reader:
+    css: [default, uio, useR-fonts]
+    lib_dir: libs
+    seal: false
+    self_contained: true
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+---
+
+```{r configuracion, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyverse)
+library(fontawesome)
+library(emo)
+library(kableExtra)
+library(xaringanExtra)
+
+opts_chunk$set(echo=FALSE,
+               warning=FALSE,
+               collapse = TRUE,
+               dpi = 300)
+knit_engines$set("yaml", "markdown")
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+```
+
+class: left, middle, inverse
+background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
+background-size: cover
+
+.pull-left[
+# `r rmarkdown::metadata$title` `r fontawesome::fa('chart-simple')`
+### `r rmarkdown::metadata$author`
+#### `r rmarkdown::metadata$date`
+<p style="font-size: 12px;"><em>Imagen de la portada: <a href="https://unsplash.com/es/fotos/palos-de-madera-verdes-y-marrones-I-0OS5iRp0Q" style="color: #D6D6D6; text-decoration: underline;">Markus Spiske</a> en Unsplash. Editado.</em></p>
+]
+
+---
+class: justify
+
+## Sobre mí `r fontawesome::fa('user')`
+
+----
+
+.pull-left[
+### Formación
+
+- Estudiante de biología (Facultad de Ciencias, UCV).
+
+- 5 años de experiencia en `r fontawesome::fa('r-project')`.
+
+### Experiencia
+
+- Preparador de Laboratorio de Ecología I (I-2023 y I-2024) y Laboratorio de Ecología II (II-2024)
+
+- Asesoramiento académico particular en estadística.
+]
+
+.pull-right[
+### Otros talleres dictados
+
+- [Iniciación en R para científicos (2022).](https://github.com/itsmiguelrojas/IntroRScientist)
+
+### Contacto
+
+- [LinkedIn `r fontawesome::fa('linkedin')`: itsmiguelrojas](https://www.linkedin.com/in/itsmiguelrojas/)
+
+- [GitHub `r fontawesome::fa('github')`: itsmiguelrojas](https://github.com/itsmiguelrojas/)
+
+- [Kaggle `r fontawesome::fa('kaggle')`: itsmiguelrojas](https://www.kaggle.com/itsmiguelrojas/)
+]
+
+---
+class: justify, middle
+
+## Contenido (más o menos...) `r fontawesome::fa('clipboard-list')`
+
+----
+
+1. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors.
+2. Prueba de Levene para homogeneidad de varianzas.
+3. Análisis de varianza (ANOVA) y prueba *post hoc* de Tukey-Kramer.
+4. Pruebas no paramétricas:
+  - Prueba de suma de rangos de Wilcoxon de una sola muestra.
+  - Prueba de Mann-Whitney-Wilcoxon para muestras independientes.
+  - Prueba de Wilcoxon para rangos signados.
+  - Prueba de Kruskal-Wallis.
+5. Regresión lineal, prueba de hipótesis de correlación y prueba de hipótesis de la pendiente.
+6. Remuestreo por bootstrapping.
+
+---
+class: justify
+
+## ¿Qué vamos a aprender? `r fontawesome::fa('book-open-reader')`
+
+----
+
+- Verificar la normalidad de los datos y aprender a aplicar la prueba de Lilliefors para determinar si un conjunto de datos sigue una distribución normal.
+
+- Evaluar la homogeneidad de varianzas entre grupos mediante la prueba de Levene.
+
+- Realizar un análisis de varianza para comparar las medias de tres o más grupos y hacer una prueba *post hoc* para identificar las diferencias entre grupos.
+
+- Poner a prueba las hipótesis cuando los datos no cumplen los supuestos de normalidad.
+
+- Comprender los conceptos básicos de la regresión lineal, aprender a ajustar un modelo de regresión y a interpretar los resultados, incluyendo los coeficientes y el $R^2$.
+
+- Calcular y interpretar los coeficientes de correlación de Pearson y Spearman para evaluar la relación entre dos variables.
+
+- Comprender el concepto de bootstrapping y su utilidad en la estimación de intervalos de confianza y p-valores.
+
+---
+class: justify, middle, inverse
+background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
+background-size: cover
+
+.pull-left[
+### 1. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors
+]
+
+---
+class: justify
+
+## Prueba de Lilliefors
+
+----
