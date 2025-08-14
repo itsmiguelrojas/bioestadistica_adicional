@@ -4,7 +4,7 @@ author: "Br. Miguel Rojas"
 date: "15 de agosto de 2025"
 output:
   xaringan::moon_reader:
-    css: [default, uio, useR-fonts]
+    css: [default, uio, useR-fonts, css/estilos.css]
     lib_dir: libs
     seal: false
     self_contained: true
@@ -50,11 +50,7 @@ background-size: cover
 ]
 
 ---
-class: justify
-
 ## Sobre mí `r fontawesome::fa('user')`
-
-----
 
 .pull-left[
 ### Formación
@@ -73,7 +69,7 @@ class: justify
 .pull-right[
 ### Otros talleres dictados
 
-- [Iniciación en R para científicos (2022).](https://github.com/itsmiguelrojas/IntroRScientist)
+- [Iniciación en R para científicos (2022).](https://itsmiguelrojas.github.io/IntroRScientist/)
 
 ### Contacto
 
@@ -89,9 +85,7 @@ class: justify, middle
 
 ## Contenido (más o menos...) `r fontawesome::fa('clipboard-list')`
 
-----
-
-1. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors.
+1. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors y prueba de normalidad de Shapiro-Wilk.
 2. Prueba de Levene para homogeneidad de varianzas.
 3. Análisis de varianza (ANOVA) y prueba *post hoc* de Tukey-Kramer.
 4. Pruebas no paramétricas:
@@ -107,9 +101,7 @@ class: justify
 
 ## ¿Qué vamos a aprender? `r fontawesome::fa('book-open-reader')`
 
-----
-
-- Verificar la normalidad de los datos y aprender a aplicar la prueba de Lilliefors para determinar si un conjunto de datos sigue una distribución normal.
+- Verificar la normalidad de los datos y aprender a aplicar la prueba de Lilliefors y la prueba de Shapiro-Wilk para determinar si un conjunto de datos sigue una distribución normal.
 
 - Evaluar la homogeneidad de varianzas entre grupos mediante la prueba de Levene.
 
@@ -124,17 +116,91 @@ class: justify
 - Comprender el concepto de bootstrapping y su utilidad en la estimación de intervalos de confianza y p-valores.
 
 ---
-class: justify, middle, inverse
+class: middle, inverse
 background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
 background-size: cover
 
 .pull-left[
-### 1. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors
+### 1. Pruebas de normalidad
 ]
 
 ---
 class: justify
 
-## Prueba de Lilliefors
+## Distribución
 
-----
+.pull-left[
+Normalmente, cuando se conocen todos los datos de una población (o esta es lo suficientemente grande), es fácil visualizar su distribución. Por ejemplo, visualicen esta distribución:
+
+```{r distribucion_1, fig.height=5}
+abalone <- read.csv2('datos/abalone.data')
+
+abalone %>%
+  ggplot(aes(x = whole_weight)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 13, color = 'black', fill = 'aquamarine') +
+  labs(
+    x = 'Peso total (g)',
+    y = 'Conteo',
+    title = 'Distribución de peso total de abulones',
+    caption = 'Fuente: Nash, W., Sellers, T., Talbot, S., Cawthorn, A. y Ford, W. (1994).\nAbalone [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C55C7W.'
+  ) +
+  theme_minimal()
+```
+]
+
+.pull-right[
+Estos datos representan la distribución del peso total de abulones (*Haliotis* sp.) para 4177 individuos de la especie, cuya mediana, promedio y desviación estándar son respectivamente:
+
+```{r}
+library(sdPop)
+
+matrix(round(c(median(abalone$whole_weight),mean(abalone$whole_weight), sd.population(abalone$whole_weight)), 4), ncol = 3, dimnames = list('',c('Mediana','Promedio','Des. estándar')))
+```
+
+Con toda esta información, es fácil darnos cuenta de que los datos están **sesgados**. Otra manera de verlo es a través del valor de la asimetría, que se calcula como:
+
+$\text{Asimetría}=\frac{\sum\limits_{i=1}^{N}\left(X_{i}-\bar{X}\right)^3}{(N-1)s^3}=\frac{261.3577}{(4176)(0.1178871)}=0.5309$
+]
+
+---
+class: justify
+
+## Distribución
+
+.pull-left[
+Ahora observemos cómo se verían los datos si fuesen normales, utilizando los valores de promedio y desviación estándar, y comparando la distribución normal generada contra la verdadera distribución:
+
+```{r distribucion_2, fig.height=5}
+set.seed(123)
+abalone.if.normal <- data.frame(x = rnorm(nrow(abalone), mean(abalone$whole_weight), sd.population(abalone$whole_weight)))
+
+abalone_peso_total_comparado <- cbind(abalone, abalone.if.normal) %>%
+  select(whole_weight,x) %>%
+  pivot_longer(cols = 1:2, names_to = 'distribucion', values_to = 'peso_total')
+
+abalone_peso_total_comparado$distribucion <- factor(abalone_peso_total_comparado$distribucion, labels = c('Real','Normal'))
+
+abalone_peso_total_comparado %>%
+  ggplot(aes(x = peso_total, fill = distribucion)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 13, color = 'black', position = 'identity', show.legend = FALSE) +
+  labs(
+    x = 'Peso total (g)',
+    y = 'Conteo',
+    title = 'Distribución de peso total de abulones',
+    subtitle = 'Real vs. normal',
+    caption = 'Fuente: Nash, W., Sellers, T., Talbot, S., Cawthorn, A. y Ford, W. (1994).\nAbalone [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C55C7W.'
+  ) +
+  scale_fill_manual(values = c('aquamarine','salmon')) +
+  facet_wrap(. ~ distribucion, nrow = 2) +
+  theme_minimal()
+```
+]
+
+.pull-right[
+Las comparaciones visuales siempre son una buena manera de inspeccionar nuestros datos para verificar la normalidad. No obstante, existen pruebas de hipótesis destinadas para este propósito. Estas pruebas pueden ser complementadas con un análisis visual.
+
+La mayoría (si no todas) las hipótesis de estas pruebas son por lo general:
+
+$H_{0}:\text{Los datos siguen una distribución normal.}$
+$H_{a}:\text{Los datos no siguen una distribución normal.}$
+]

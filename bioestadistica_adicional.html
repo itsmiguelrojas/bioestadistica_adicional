@@ -18,6 +18,7 @@
     <script src="libs/shareon-1.4.1/shareon.min.js"></script>
     <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link rel="stylesheet" href="css/estilos.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -37,11 +38,7 @@ background-size: cover
 ]
 
 ---
-class: justify
-
 ## Sobre mí <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
-
-----
 
 .pull-left[
 ### Formación
@@ -60,7 +57,7 @@ class: justify
 .pull-right[
 ### Otros talleres dictados
 
-- [Iniciación en R para científicos (2022).](https://github.com/itsmiguelrojas/IntroRScientist)
+- [Iniciación en R para científicos (2022).](https://itsmiguelrojas.github.io/IntroRScientist/)
 
 ### Contacto
 
@@ -76,9 +73,7 @@ class: justify, middle
 
 ## Contenido (más o menos...) <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM72 272a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm104-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16zM72 368a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm88 0c0-8.8 7.2-16 16-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16z"/></svg>
 
-----
-
-1. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors.
+1. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors y prueba de normalidad de Shapiro-Wilk.
 2. Prueba de Levene para homogeneidad de varianzas.
 3. Análisis de varianza (ANOVA) y prueba *post hoc* de Tukey-Kramer.
 4. Pruebas no paramétricas:
@@ -94,9 +89,7 @@ class: justify
 
 ## ¿Qué vamos a aprender? <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M160 96a96 96 0 1 1 192 0A96 96 0 1 1 160 96zm80 152V512l-48.4-24.2c-20.9-10.4-43.5-17-66.8-19.3l-96-9.6C12.5 457.2 0 443.5 0 427V224c0-17.7 14.3-32 32-32H62.3c63.6 0 125.6 19.6 177.7 56zm32 264V248c52.1-36.4 114.1-56 177.7-56H480c17.7 0 32 14.3 32 32V427c0 16.4-12.5 30.2-28.8 31.8l-96 9.6c-23.2 2.3-45.9 8.9-66.8 19.3L272 512z"/></svg>
 
-----
-
-- Verificar la normalidad de los datos y aprender a aplicar la prueba de Lilliefors para determinar si un conjunto de datos sigue una distribución normal.
+- Verificar la normalidad de los datos y aprender a aplicar la prueba de Lilliefors y la prueba de Shapiro-Wilk para determinar si un conjunto de datos sigue una distribución normal.
 
 - Evaluar la homogeneidad de varianzas entre grupos mediante la prueba de Levene.
 
@@ -111,20 +104,58 @@ class: justify
 - Comprender el concepto de bootstrapping y su utilidad en la estimación de intervalos de confianza y p-valores.
 
 ---
-class: justify, middle, inverse
+class: middle, inverse
 background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
 background-size: cover
 
 .pull-left[
-### 1. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors
+### 1. Pruebas de normalidad
 ]
 
 ---
 class: justify
 
-## Prueba de Lilliefors
+## Distribución
 
-----
+.pull-left[
+Normalmente, cuando se conocen todos los datos de una población (o esta es lo suficientemente grande), es fácil visualizar su distribución. Por ejemplo, visualicen esta distribución:
+
+![](bioestadistica_adicional_files/figure-html/distribucion_1-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+Estos datos representan la distribución del peso total de abulones (*Haliotis* sp.) para 4177 individuos de la especie, cuya mediana, promedio y desviación estándar son respectivamente:
+
+
+```
+##  Mediana Promedio Des. estándar
+##   0.7995   0.8287        0.4903
+```
+
+Con toda esta información, es fácil darnos cuenta de que los datos están **sesgados**. Otra manera de verlo es a través del valor de la asimetría, que se calcula como:
+
+`\(\text{Asimetría}=\frac{\sum\limits_{i=1}^{N}\left(X_{i}-\bar{X}\right)^3}{(N-1)s^3}=\frac{261.3577}{(4176)(0.1178871)}=0.5309\)`
+]
+
+---
+class: justify
+
+## Distribución
+
+.pull-left[
+Ahora observemos cómo se verían los datos si fuesen normales, utilizando los valores de promedio y desviación estándar, y comparando la distribución normal generada contra la verdadera distribución:
+
+![](bioestadistica_adicional_files/figure-html/distribucion_2-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+Las comparaciones visuales siempre son una buena manera de inspeccionar nuestros datos para verificar la normalidad. No obstante, existen pruebas de hipótesis destinadas para este propósito. Estas pruebas pueden ser complementadas con un análisis visual.
+
+La mayoría (si no todas) las hipótesis de estas pruebas son por lo general:
+
+`\(H_{0}:\text{Los datos siguen una distribución normal.}\)`
+`\(H_{a}:\text{Los datos no siguen una distribución normal.}\)`
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
