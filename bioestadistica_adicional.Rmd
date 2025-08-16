@@ -4,7 +4,7 @@ author: "Br. Miguel Rojas"
 date: "15 de agosto de 2025"
 output:
   xaringan::moon_reader:
-    css: [default, uio, useR-fonts, css/estilos.css]
+    css: [default, uio, useR-fonts, css/estilos.css, css/animate.css]
     lib_dir: libs
     seal: false
     self_contained: true
@@ -38,7 +38,7 @@ xaringanExtra::style_share_again(
 )
 ```
 
-class: left, middle, inverse
+class: left, middle, inverse, animate__animated, animate__fadeIn
 background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
 background-size: cover
 
@@ -50,6 +50,8 @@ background-size: cover
 ]
 
 ---
+class: middle, animate__animated, animate__fadeIn
+
 ## Sobre mí `r fontawesome::fa('user')`
 
 .pull-left[
@@ -81,7 +83,7 @@ background-size: cover
 ]
 
 ---
-class: justify, middle
+class: justify, middle, animate__animated, animate__fadeIn
 
 ## Contenido (más o menos...) `r fontawesome::fa('clipboard-list')`
 
@@ -97,7 +99,7 @@ class: justify, middle
 6. Remuestreo por bootstrapping.
 
 ---
-class: justify
+class: justify, middle, animate__animated, animate__fadeIn
 
 ## ¿Qué vamos a aprender? `r fontawesome::fa('book-open-reader')`
 
@@ -116,18 +118,18 @@ class: justify
 - Comprender el concepto de bootstrapping y su utilidad en la estimación de intervalos de confianza y p-valores.
 
 ---
-class: middle, inverse
+class: middle, inverse, center, animate__animated, animate__fadeIn
 background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
 background-size: cover
 
 .pull-left[
-### 1. Pruebas de normalidad
+### Pruebas de normalidad
 ]
 
 ---
-class: justify
+class: justify, animate__animated, animate__fadeIn
 
-## Distribución
+## Forma de una distribución
 
 .pull-left[
 Normalmente, cuando se conocen todos los datos de una población (o esta es lo suficientemente grande), es fácil visualizar su distribución. Por ejemplo, visualicen esta distribución:
@@ -159,13 +161,13 @@ matrix(round(c(median(abalone$whole_weight),mean(abalone$whole_weight), sd.popul
 
 Con toda esta información, es fácil darnos cuenta de que los datos están **sesgados**. Otra manera de verlo es a través del valor de la asimetría, que se calcula como:
 
-$\text{Asimetría}=\frac{\sum\limits_{i=1}^{N}\left(X_{i}-\bar{X}\right)^3}{(N-1)s^3}=\frac{261.3577}{(4176)(0.1178871)}=0.5309$
+$\text{Asimetría}=\frac{\sum\limits_{i=1}^{N}\left(X_{i}-\bar{X}\right)^3}{(N)s^3}=\frac{261.3577}{(4177)(0.1178871)}=0.5308$
 ]
 
 ---
-class: justify
+class: justify, animate__animated, animate__fadeIn
 
-## Distribución
+## Forma de una distribución
 
 .pull-left[
 Ahora observemos cómo se verían los datos si fuesen normales, utilizando los valores de promedio y desviación estándar, y comparando la distribución normal generada contra la verdadera distribución:
@@ -201,6 +203,246 @@ Las comparaciones visuales siempre son una buena manera de inspeccionar nuestros
 
 La mayoría (si no todas) las hipótesis de estas pruebas son por lo general:
 
-$H_{0}:\text{Los datos siguen una distribución normal.}$
-$H_{a}:\text{Los datos no siguen una distribución normal.}$
+$H_{0}:\text{Los datos siguen una distribución normal.}\\H_{a}:\text{Los datos no siguen una distribución normal.}$
+
+<p style="color: #00F;">Veamos dos de estas pruebas →</p>
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors
+
+.pull-left[
+**1** Se calculan la media aritmética y la desviación estándar de una muestra aleatoria de tamaño $n$:
+
+$\bar{X}=\frac{\sum\limits_{i=1}^{n}X_{i}}{n}\\s=\sqrt{\frac{\sum\limits_{i=1}^{n}\left(X_{i}-\bar{X}\right)^2}{n-1}}$
+  
+**2** Se ordenan los datos de forma ascendente.
+
+**3** Se estandarizan los datos.
+
+**4** Se formulan las hipótesis estadísticas:
+
+$H_{0}:\text{Los datos siguen una distribución normal.}\\H_{a}:\text{Los datos no siguen una distribución normal.}$
+
+**5** Se calcula el estadítico de prueba:
+
+$D_{n}=max|F(X)-S_{n}(X)|$
+]
+
+.pull-right[
+en donde $F(X)$ es la función de distribución normal acumulativa, y $S_{n}(X)$ es la probabilidad de obtener valores menores o iguales a $X_{i}$
+
+**6** Se busca el valor de $W_{\alpha;\: n}$ crítico en la [tabla de Lilliefors](https://real-statistics.com/statistics-tables/lilliefors-test-table/).
+
+**7** Hacer el contraste:
+
+$D_{n}>W_{\alpha;\: n}$
+
+Si esta relación se cumple, decimos que **no hay suficiente evidencia para aceptar la hipótesis nula**, y tenemos que ir en favor de la **hipótesis alternativa**. En ese sentido, se dice que **los datos no siguen una distribución normal**.
+
+<p style="color: #00F;">Veamos un ejemplo...</p>
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors - Ejemplo
+
+Tomamos datos aleatorios del peso total de los abulones (por ejemplo, 50 muestras) y los ordenamos de menor a mayor:
+
+```{r}
+# Se toman 30 datos aleatorios
+set.seed(123)
+abalone.muestra <- sample(abalone$whole_weight, size = 50, replace = FALSE)
+
+# Se muestran en pantalla
+print(abalone.muestra[order(abalone.muestra)])
+```
+
+Calculamos su promedio y desviación estándar:
+
+$\bar{X}=\frac{0.0240+0.0320+ \dots +2.5500}{50}=\frac{37.586}{50}=0.7517\\s=\sqrt{\frac{(0.0240-0.7517)^2+(0.0320-0.7517)^2+ \dots +(2.5500-0.7517)^2}{50-1}}=\sqrt{\frac{12.91892}{49}}=0.5135$
+
+Ahora, se estandarizan los datos mediante la fórmula:
+
+$Z=\frac{X_{i}-\bar{X}}{s}$
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors - Ejemplo
+
+De esta manera, obtenemos lo siguiente:
+
+```{r}
+round((abalone.muestra[order(abalone.muestra)]-mean(abalone.muestra))/sd(abalone.muestra), 3)
+```
+
+Con estos valores de $Z$, se buscan los valores de $F(X)$ en la tabla normal:
+
+```{r}
+round(pnorm((abalone.muestra[order(abalone.muestra)]-mean(abalone.muestra))/sd(abalone.muestra)), 4)
+```
+
+Buscamos también los valores de $S_{n}$:
+
+```{r}
+round(1:50/50,4)
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors - Ejemplo
+
+Ahora, se calcula cada valor de $|F(X)-S_{n}(X)|$:
+
+```{r}
+round(abs(pnorm((abalone.muestra[order(abalone.muestra)]-mean(abalone.muestra))/sd(abalone.muestra))-1:50/50),4)
+```
+
+De aquí, se elige el mayor valor de todos, el cual es:
+
+```{r}
+round(max(abs(pnorm((abalone.muestra[order(abalone.muestra)]-mean(abalone.muestra))/sd(abalone.muestra))-1:50/50)),4)
+```
+
+Luego, se busca el valor crítico de $W_{\alpha;\:n}$ para $n=50$ y $\alpha=0.05$ en la [tabla de Lilliefors](https://real-statistics.com/statistics-tables/lilliefors-test-table/), el cual es 0.1246. De esta forma, se contrastan ambos valores:
+
+$0.1351 > 0.1246$
+
+Lo cual claramente es cierto. Por lo tanto, no hay suficiente evidencia para aceptar $H_{0}$, y debemos optar a favor de $H_{a}$. Por lo tanto, concluimos que los datos **no siguen una distribución normal**.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors - Ejemplo
+
+Otra manera de ver esto es a través del p-valor:
+
+```{r}
+library(nortest)
+lillie.test(abalone.muestra)
+```
+
+Esto es fácilmente lograble a través de herramientas computacionales y lenguajes de programación, como R o Python. Esta clase de salidas las veremos a lo largo de la presentación.
+
+<div class="img-container">
+  <img src="https://mattsosna.com/images/r-python.png" width="700px">
+</div>
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de normalidad de Shapiro-Wilk
+
+.pull-left[
+**1** Se calculan la media aritmética y la desviación estándar de una muestra aleatoria de tamaño $n$:
+
+$\bar{X}=\frac{\sum\limits_{i=1}^{n}X_{i}}{n}\\s=\sqrt{\frac{\sum\limits_{i=1}^{n}\left(X_{i}-\bar{X}\right)^2}{n-1}}$
+
+**2** Se ordenan los datos de forma ascendente.
+
+**3** Se calcula la suma de los cuadrados de las diferencias (SS):
+
+$SS=\sum\limits_{i=1}^{n}\left(X_{i}-\bar{X}\right)^2$
+
+**4** Se formulan las hipótesis estadísticas:
+
+$H_{0}:\text{Los datos siguen una distribución normal.}\\H_{a}:\text{Los datos no siguen una distribución normal.}$
+]
+
+.pull-right[
+**5** Se calcula $b$ como se indica a continuación, tomando las ponderaciones $a_{i}$ de la tabla de coeficientes (Tabla 1) en las [tablas de Shapiro-Wilk](https://real-statistics.com/statistics-tables/shapiro-wilk-table/):
+
+$b=\sum\limits_{i=1}^{m}a_{i}\left(X_{n+1-i}-X_{i}\right)$
+Si $n$ es par, entonces $m=n/2$. Si $n$ es impar, entonces $m=(n-1)/2$.
+
+**6** Se calcula el estadístico de prueba:
+
+$W=\frac{b^2}{SS}$
+
+**7** Se busca en la Tabla 2 ([tablas de Shapiro-Wilk](https://real-statistics.com/statistics-tables/shapiro-wilk-table/)) el valor que más se acerque a $W$, el cual indica el **p-valor** de la prueba. Para un $\alpha=0.05$, si este valor es mayor, se acepta $H_{0}$. Si no, se opta por $H_{a}$.
+
+<p style="color: #00F;">Vamos con el ejemplo...</p>
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de normalidad de Shapiro-Wilk - Ejemplo
+
+Tomemos los mismos datos de antes (peso total de abulones), ordenados de forma ascendente:
+
+```{r}
+abalone.muestra[order(abalone.muestra)]
+```
+
+Ya conocemos su promedio y desviación estándar:
+
+$\bar{X}=0.7517\\s=0.5135$
+
+Como ya conocemos el valor de $s$, es fácil despejar para encontrar $SS$:
+
+$SS=s^2 \times (n-1)=0.5135^2 \times (50-1) = 12.91892$
+
+Ahora, se calcula el valor de $b$:
+
+$m=50/2=25\\b=0.3751\left(2.5500-0.0240\right)+0.2574\left(1.8385-0.0320\right)+ \dots +0.0035\left(2.5500-0.0240\right)=3.452476$
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de normalidad de Shapiro-Wilk - Ejemplo
+
+Ahora, solo debemos dividir $b^2$ entre $SS$ para hallar el estadístico de prueba $W$:
+
+$W=\frac{3.452476^2}{12.91892}=0.922646$
+
+A continuación, buscamos el valor aproximado en las [tablas de Shapiro-Wilk](https://real-statistics.com/statistics-tables/shapiro-wilk-table/), específicamente en la Tabla 2:
+
+<div style="height: 150px; overflow: scroll;">
+  <img src="https://real-statistics.com/wp-content/uploads/2012/12/image3742.png">
+</div>
+
+Como vemos, el valor ni siquiera aparece reflejado en la tabla cuando $n=50$, por lo que el p-valor < 0.01. Por lo tanto, concluimos que no tenemos suficiente evidencia para aceptar $H_{0}$, por lo que los datos **no siguen una distribución normal**. Podemos calcular el p-valor a través de R:
+
+```{r}
+shapiro.test(abalone.muestra)
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## ¿Lilliefors o Shapiro-Wilk? ¿Cuál prueba es mejor?
+
+Todo depende del criterio con que se use, pero en general:
+
+| Característica | Prueba de normalidad de Lilliefors | Prueba de normalidad de Shapiro-Wilk |
+|:---:|:---|:---|
+| Base estadística | Una modificación de la prueba de Kolmogorov-Smirnov (KS). Compara la función de distribución acumulada (CDF) empírica de la muestra con una distribución normal teórica, donde la media y la desviación estándar se estiman a partir de los datos, mediante un estadístico $D_{n}$. | Una prueba específica de normalidad que compara los valores muestrales ordenados con los estadísticos de orden esperado de una distribución normal. Calcula un estadístico $W$, que es el cociente de dos estimaciones de varianza. |
+| Sensibilidad | Generalmente menos potente, especialmente para detectar desviaciones de la normalidad relacionadas con la curtosis. | Considerada ampliamente como la prueba de normalidad más potente, especialmente para muestras de tamaño pequeño a moderado. Es muy sensible a una amplia gama de desviaciones de la normalidad, incluyendo asimetría y curtosis. |
+| Tamaño de la muestra | Tradicionalmente se utiliza para muestras más pequeñas, pero se recomienda su uso con tamaños de muestra superiores a 50 donde la prueba de Shapiro-Wilk puede no estar disponible. | Más eficaz y comúnmente utilizado para tamaños de muestra pequeños a medianos (normalmente $n<50$). Algunos paquetes de software estadístico restringen su uso para muestras muy grandes ($n>5000$). Sin embargo, existe la [prueba de Shapiro-Wilk extendida](https://real-statistics.com/tests-normality-and-symmetry/statistical-tests-normality-symmetry/shapiro-wilk-expanded-test/), la cual permite manejar incluso más de 5000 datos |
+| Uso | Cuando el tamaño de la muestra sea grande ($n > 50$) o cuando el software no ofrezca la prueba de Shapiro-Wilk para el tamaño de muestra específico. También es una buena opción cuando se desea comparar la CDF de sus datos con una distribución teórica. | Primera opción para comprobar la normalidad, especialmente cuando el tamaño de la muestra sea pequeño o mediano ($n < 50$) . Debido a su superior potencia, es la prueba más recomendada en muchas guías estadísticas. |
+
+No obstante, vamos a someterlo a prueba...
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## ¿Lilliefors o Shapiro-Wilk? ¿Cuál prueba es mejor?
+
+<div class="img-container">
+  <img src="img/comparacion_p_valores.png" style="border: 1px black solid;">
+</div>
+
+---
+class: middle, inverse, center, animate__animated, animate__fadeIn
+background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
+background-size: cover
+
+.pull-left[
+### Prueba de homogeneidad de varianzas
 ]

@@ -2,6 +2,21 @@
   text-align: justify;
 }
 
-h2 {
-  margin-bottom: 0;
+.remark-slide-content h2 {
+  margin: 0;
+  font-size: 1.5em;
+  text-decoration: underline;
+}
+
+a {
+ text-decoration: underline; 
+}
+
+div.img-container{
+  display: flex;
+  justify-content: center;
+}
+
+table {
+  font-size: 0.8em;
 }
