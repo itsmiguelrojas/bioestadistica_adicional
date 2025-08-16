@@ -62,3 +62,11 @@ p.values.comp %>%
   scale_shape_manual(values = c(1,4)) +
   theme_minimal() +
   theme(legend.position = 'bottom')
+
+p.values %>%
+  as_tibble() %>%
+  pivot_longer(cols = 1:16, names_to = 'test.sample', values_to = 'p.value') %>%
+  ggplot(aes(x = p.value)) +
+  geom_histogram(color = 'black', bins = 14, fill = 'aquamarine') +
+  facet_wrap(. ~ factor(test.sample, levels = paste0(rep(c('l.','sw.'),each=8),rep(n.muestra,2)))) +
+  theme_minimal()

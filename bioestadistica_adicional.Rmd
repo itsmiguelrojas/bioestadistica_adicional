@@ -105,9 +105,9 @@ class: justify, middle, animate__animated, animate__fadeIn
 
 - Verificar la normalidad de los datos y aprender a aplicar la prueba de Lilliefors y la prueba de Shapiro-Wilk para determinar si un conjunto de datos sigue una distribución normal.
 
-- Evaluar la homogeneidad de varianzas entre grupos mediante la prueba de Levene.
+- Evaluar la homogeneidad de varianzas de varios grupos mediante la prueba de Levene.
 
-- Realizar un análisis de varianza para comparar las medias de tres o más grupos y hacer una prueba *post hoc* para identificar las diferencias entre grupos.
+- Realizar un análisis de varianza para comparar las medias de tres o más grupos y hacer una prueba *post hoc* para identificar cuáles son las diferencias entre los grupos.
 
 - Poner a prueba las hipótesis cuando los datos no cumplen los supuestos de normalidad.
 
@@ -142,7 +142,7 @@ abalone %>%
   geom_histogram(aes(y = after_stat(density)), bins = 13, color = 'black', fill = 'aquamarine') +
   labs(
     x = 'Peso total (g)',
-    y = 'Conteo',
+    y = 'Frecuencia',
     title = 'Distribución de peso total de abulones',
     caption = 'Fuente: Nash, W., Sellers, T., Talbot, S., Cawthorn, A. y Ford, W. (1994).\nAbalone [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C55C7W.'
   ) +
@@ -187,7 +187,7 @@ abalone_peso_total_comparado %>%
   geom_histogram(aes(y = after_stat(density)), bins = 13, color = 'black', position = 'identity', show.legend = FALSE) +
   labs(
     x = 'Peso total (g)',
-    y = 'Conteo',
+    y = 'Frecuencia',
     title = 'Distribución de peso total de abulones',
     subtitle = 'Real vs. normal',
     caption = 'Fuente: Nash, W., Sellers, T., Talbot, S., Cawthorn, A. y Ford, W. (1994).\nAbalone [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C55C7W.'
@@ -446,3 +446,7 @@ background-size: cover
 .pull-left[
 ### Prueba de homogeneidad de varianzas
 ]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
