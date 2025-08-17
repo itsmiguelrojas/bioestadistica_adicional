@@ -360,6 +360,7 @@ $H_{0}:\text{Los datos siguen una distribución normal.}\\H_{a}:\text{Los datos 
 **5** Se calcula $b$ como se indica a continuación, tomando las ponderaciones $a_{i}$ de la tabla de coeficientes (Tabla 1) en las [tablas de Shapiro-Wilk](https://real-statistics.com/statistics-tables/shapiro-wilk-table/):
 
 $b=\sum\limits_{i=1}^{m}a_{i}\left(X_{n+1-i}-X_{i}\right)$
+
 Si $n$ es par, entonces $m=n/2$. Si $n$ es impar, entonces $m=(n-1)/2$.
 
 **6** Se calcula el estadístico de prueba:
@@ -392,7 +393,7 @@ $SS=s^2 \times (n-1)=0.5135^2 \times (50-1) = 12.91892$
 
 Ahora, se calcula el valor de $b$:
 
-$m=50/2=25\\b=0.3751\left(2.5500-0.0240\right)+0.2574\left(1.8385-0.0320\right)+ \dots +0.0035\left(2.5500-0.0240\right)=3.452476$
+$m=50/2=25\\b=0.3751\left(2.5500-0.0240\right)+0.2574\left(1.8385-0.0320\right)+ \dots +0.0035\left(0.6015-0.5910\right)=3.452476$
 
 ---
 class: justify, animate__animated, animate__fadeIn
@@ -427,7 +428,7 @@ Todo depende del criterio con que se use, pero en general:
 | Base estadística | Una modificación de la prueba de Kolmogorov-Smirnov (KS). Compara la función de distribución acumulada (CDF) empírica de la muestra con una distribución normal teórica, donde la media y la desviación estándar se estiman a partir de los datos, mediante un estadístico $D_{n}$. | Una prueba específica de normalidad que compara los valores muestrales ordenados con los estadísticos de orden esperado de una distribución normal. Calcula un estadístico $W$, que es el cociente de dos estimaciones de varianza. |
 |Supuestos|Muestras aleatorias independientes, datos continuos.|Muestras aleatorias independientes, datos continuos.|
 | Sensibilidad | Generalmente menos potente, especialmente para detectar desviaciones de la normalidad relacionadas con la curtosis. | Considerada ampliamente como la prueba de normalidad más potente, especialmente para muestras de tamaño pequeño a moderado. Es muy sensible a una amplia gama de desviaciones de la normalidad, incluyendo asimetría y curtosis. |
-| Tamaño de la muestra | Tradicionalmente se utiliza para muestras más pequeñas, pero se recomienda su uso con tamaños de muestra superiores a 50 donde la prueba de Shapiro-Wilk puede no estar disponible. | Más eficaz y comúnmente utilizado para tamaños de muestra pequeños a medianos (normalmente $n<50$). Algunos paquetes de software estadístico restringen su uso para muestras muy grandes ($n>5000$). Sin embargo, existe la [prueba de Shapiro-Wilk extendida](https://real-statistics.com/tests-normality-and-symmetry/statistical-tests-normality-symmetry/shapiro-wilk-expanded-test/), la cual permite manejar incluso más de 5000 datos |
+| Tamaño de la muestra | Tradicionalmente se utiliza para muestras más pequeñas, pero se recomienda su uso con tamaños de muestra superiores a 50 donde la prueba de Shapiro-Wilk puede no estar disponible. | Más eficaz y comúnmente utilizado para tamaños de muestra pequeños a medianos (normalmente $n<50$). Algunos paquetes de software estadístico restringen su uso para muestras muy grandes ($n>5000$). Sin embargo, existe la [prueba de Shapiro-Wilk extendida](https://real-statistics.com/tests-normality-and-symmetry/statistical-tests-normality-symmetry/shapiro-wilk-expanded-test/), la cual permite manejar incluso más de 5000 datos. |
 | Uso | Cuando el tamaño de la muestra sea grande ($n > 50$) o cuando el software no ofrezca la prueba de Shapiro-Wilk para el tamaño de muestra específico. También es una buena opción cuando se desea comparar la CDF de sus datos con una distribución teórica. | Primera opción para comprobar la normalidad, especialmente cuando el tamaño de la muestra sea pequeño o mediano ($n < 50$) . Debido a su superior potencia, es la prueba más recomendada en muchas guías estadísticas. |
 
 No obstante, vamos a someterlo a prueba...
@@ -676,3 +677,63 @@ anova(lm(residuales~sex,abalone.residuals))
 ```
 
 También lo veremos más adelante en el análisis de varianza (ANOVA).
+
+---
+class: left, animate__animated, animate__fadeIn
+
+## Prueba de Levene para homogeneidad de varianzas - Resumen
+
+|Característica|Descripción|
+|:---:|:---|
+|Objetivo|Pone a prueba la $H_{0}$ de que varios grupos tienen varianzas iguales.|
+|Supuestos|Supone que las muestras son independientes y se extraen de poblaciones con una distribución continua.|
+|Robustez|Más robusto a las desviaciones de la normalidad en comparación con otras pruebas, como la prueba de Bartlett.|
+|Estadístico de prueba|Estadístico $F$, basado en las desviaciones absolutas de las observaciones con respecto a las medias o medianas de su grupo.|
+|Sensibilidad|	Sensible a tamaños de muestra desiguales; puede manejar grupos con diferentes números de observaciones.|
+|Aplicación|Se utiliza comúnmente en ANOVA y análisis de regresión para comprobar el supuesto de homogeneidad de varianzas.|
+
+.pull-left.justify[
+Recordar también que la distribución F de Fisher es, en realidad, una familia de distribuciones, construida a partir de dos distribuciones normales, cada una con su promedio y su varianza. En general, para la prueba de Levene, las dos fuentes de varianza provienen de las diferencias entre los grupos ($SSB$) y dentro de los grupos ($SSW$), que constituyen estimadores insesgados de la varianza.
+]
+
+.pull-right[
+![](https://online.stat.psu.edu/stat415/sites/stat415/files//lesson53/Lesson32_Drawing02.gif)
+]
+
+---
+class: middle, inverse, center, animate__animated, animate__fadeIn
+background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
+background-size: cover
+
+.pull-left[
+### Análisis de varianza (ANOVA)
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Comparar medias de 3 o más grupos
+
+.pull-left[
+Ya vimos que la varianza de uno de los grupos es menor, y además ese mismo grupo posee una distribución no normal. No obstante, podemos realizar un análisis de varianza (ANOVA)
+]
+
+.pull-right[
+```{r distribucion_4, fig.height=8}
+ abalone.sex %>%
+  ggplot(aes(x = sex, y = whole_weight, fill = sex)) +
+  geom_violin(alpha = 0.5) +
+  stat_boxplot(geom = 'errorbar', width = 0.2, linewidth = 1) +
+  geom_boxplot(width = 0.1) +
+  labs(
+    x = '',
+    y = 'Peso total (g)',
+    title = 'Distribución de peso total de abulones',
+    subtitle = 'Dividido por sexo',
+    caption = 'Fuente: Nash, W., Sellers, T., Talbot, S., Cawthorn, A. y Ford, W. (1994).\nAbalone [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C55C7W.'
+  ) +
+  scale_fill_manual(values = c('aquamarine','salmon','#EEB840')) +
+  theme_minimal() +
+  theme(legend.position = 'none')
+```
+]
