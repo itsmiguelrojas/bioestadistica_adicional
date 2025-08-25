@@ -413,8 +413,8 @@ Todo depende del criterio con que se use, pero en general:
 | Base estadística | Una modificación de la prueba de Kolmogorov-Smirnov (KS). Compara la función de distribución acumulada (CDF) empírica de la muestra con una distribución normal teórica, donde la media y la desviación estándar se estiman a partir de los datos, mediante un estadístico `\(D_{n}\)`. | Una prueba específica de normalidad que compara los valores muestrales ordenados con los estadísticos de orden esperado de una distribución normal. Calcula un estadístico `\(W\)`, que es el cociente de dos estimaciones de varianza. |
 |Supuestos|Muestras aleatorias independientes, datos continuos.|Muestras aleatorias independientes, datos continuos.|
 | Sensibilidad | Generalmente menos potente, especialmente para detectar desviaciones de la normalidad relacionadas con la curtosis. | Considerada ampliamente como la prueba de normalidad más potente, especialmente para muestras de tamaño pequeño a moderado. Es muy sensible a una amplia gama de desviaciones de la normalidad, incluyendo asimetría y curtosis. |
-| Tamaño de la muestra | Tradicionalmente se utiliza para muestras más pequeñas, pero se recomienda su uso con tamaños de muestra superiores a 50 donde la prueba de Shapiro-Wilk puede no estar disponible. | Más eficaz y comúnmente utilizado para tamaños de muestra pequeños a medianos (normalmente `\(n&lt;50\)`). Algunos paquetes de software estadístico restringen su uso para muestras muy grandes (`\(n&gt;5000\)`). Sin embargo, existe la [prueba de Shapiro-Wilk extendida](https://real-statistics.com/tests-normality-and-symmetry/statistical-tests-normality-symmetry/shapiro-wilk-expanded-test/), la cual permite manejar incluso más de 5000 datos. |
-| Uso | Cuando el tamaño de la muestra sea grande (`\(n &gt; 50\)`) o cuando el software no ofrezca la prueba de Shapiro-Wilk para el tamaño de muestra específico. También es una buena opción cuando se desea comparar la CDF de sus datos con una distribución teórica. | Primera opción para comprobar la normalidad, especialmente cuando el tamaño de la muestra sea pequeño o mediano (`\(n &lt; 50\)`) . Debido a su superior potencia, es la prueba más recomendada en muchas guías estadísticas. |
+| Tamaño de la muestra | Tradicionalmente se utiliza para muestras más pequeñas, pero se recomienda su uso con tamaños de muestra superiores a 50 donde la prueba de Shapiro-Wilk puede no estar disponible. | Comúnmente utilizado para tamaños de muestra pequeños a medianos (`\(n&lt;50\)`). Algunos paquetes de software estadístico restringen su uso para muestras con `\(n \leq 5000\)`, lo cual corresponde a la [prueba de Shapiro-Wilk extendida](https://real-statistics.com/tests-normality-and-symmetry/statistical-tests-normality-symmetry/shapiro-wilk-expanded-test/). |
+| Uso | Cuando el tamaño de la muestra sea grande (`\(n &gt; 50\)`) o cuando el software no ofrezca la prueba de Shapiro-Wilk para el tamaño de muestra específico. También es una buena opción cuando se desea comparar la CDF de sus datos con una distribución teórica. | Primera opción para comprobar la normalidad. Debido a su superior potencia, es la prueba más recomendada en muchas guías estadísticas. |
 
 No obstante, vamos a someterlo a prueba...
 
@@ -795,9 +795,9 @@ donde `\(n\)` es el tamaño de cada grupo.
 
 **6** Se busca el valor de `\(q_{\text{crítico}}\)` en la [tabla de rangos `\(q\)` estudentizados](https://real-statistics.com/statistics-tables/studentized-range-q-table/), con `\(df\)` iguales a los de `\(MSW\)`.
 
-**7** Se compara cada valor de `\(q\)` contra el `\(q_{\text{crítico}}\)`;
+**7** Se compara cada valor de `\(q\)` contra el `\(q_{\text{crítico}}\)`:
 
-`\(q \geq q_{\text{crítico}}\)`
+`\(|q| \geq q_{\text{crítico}}\)`
 
 Con un `\(\alpha=0.05\)`, si `\(q\)` es mayor o igual que `\(q_{\text{crítico}}\)`, no hay suficiente evidencia para aceptar `\(H_{0}\)`.
 ]
@@ -834,11 +834,11 @@ Ahora, se calcula el estadístico de prueba `\(q\)` para cada par de medias:
 
 Cada uno de estos valores se compara contra un `\(q_{\text{crítico}}\)` con un `\(\alpha=0.05\)` y `\(df=42\)` grados de libertad. Si buscamos en la [tabla](https://real-statistics.com/statistics-tables/studentized-range-q-table/), el más cercano que obtenemos es el valor de `\(df=40\)`, el cual es 3.442.
 
-`\(\text{Hembra - Macho}:|0.9674| \geq 3.442\)` ❌
+`\(\text{Hembra - Macho}:|0.9674| \geq 3.442\)` ❌ (Se acepta `\(H_{0}\)`)
 
-`\(\text{Infante - Macho}: |-5.6309| \geq 3.442\)` ✅
+`\(\text{Infante - Macho}: |-5.6309| \geq 3.442\)` ✅ (Se rechaza `\(H_{0}\)`)
 
-`\(\text{Infante - Hembra}: |-6.5984| \geq 3.442\)` ✅
+`\(\text{Infante - Hembra}: |-6.5984| \geq 3.442\)` ✅ (Se rechaza `\(H_{0}\)`)
 
 Por lo tanto, en los pares **Infante - Macho** e **Infante - Hembra** hay diferencias en la media, y es en estos subgrupos donde no hay suficiente evidencia para aceptar `\(H_{0}\)`. Así, se dice que las media del peso total de infantes difiere tanto de la media de machos como de hembras.
 
@@ -863,6 +863,10 @@ class: justify, animate__animated, animate__fadeIn
 ## Infante-Hembra -0.7957333 -1.210078 -0.3813887 0.0000913
 ```
 
+Si los tamaños de los grupos son distintos, la fórmula para calcular `\(SE\)` se convierte en:
+
+`\(SE=\sqrt{\frac{MSW}{2}\left(\frac{1}{n_{i}}+\frac{1}{n_{j}}\right)}\)`
+
 El intervalo de confianza se puede calcular como `\(q_{\text{crítico}}\sqrt{\frac{MSW}{n}}\)`. Esto nos da la posibilidad de hacer el siguiente gráfico:
 
 ---
@@ -873,6 +877,207 @@ class: justify, animate__animated, animate__fadeIn
 #### Prueba de rangos de Tukey
 
 ![](bioestadistica_adicional_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Un momento... ¿cómo que hay más de un ANOVA?
+
+| **Tipo de prueba** | **Función** |
+|:---:|:---|
+| ANOVA de una vía | Compara las medias de tres o más grupos independientes para determinar si al menos uno es diferente. |
+| ANOVA de dos vías | Examina el efecto de dos factores independientes sobre una variable dependiente y sus interacciones. |
+| ANOVA de medidas repetidas | Compara las medias de varios grupos en diferentes condiciones o momentos en el tiempo. |
+| ANOVA de modelo mixto | Combina efectos fijos y aleatorios, permitiendo el análisis de datos con medidas repetidas (factores dentro de sujetos) y grupos independientes (factores entre sujetos). |
+| MANOVA | Extensión de ANOVA que analiza múltiples variables dependientes simultáneamente. |
+| ANCOVA | Combina ANOVA y regresión, ajustando las medias de los grupos por una o más covariables o variables continuas. |
+| PERMANOVA | Variante no paramétrica del ANOVA que evalúa diferencias en la composición de grupos basándose en distancias o disimilitudes entre ellos, calculando posibles rearreglos de los datos observados. |
+
+---
+class: middle, inverse, center, animate__animated, animate__fadeIn
+background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
+background-size: cover
+
+.pull-left[
+### Pruebas no paramétricas
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Pruebas no paramétricas
+
+Cuando los supuestos de las pruebas paramétricas (es decir, aquellas que están basadas en parámetros, como la media y la desviación estándar) no se cumplen, sobre todo aquellos concernientes a la distribución de los datos, pueden utilizarse pruebas no paramétricas en su lugar. Por lo general, se usan las **clasificaciones** de las observaciones en vez de las mediciones reales para llevar a cabo estas pruebas.
+
+A pesar de que existen múltiples pruebas no paramétricas, nos vamos a fijar especialmente en estas:
+
+| Prueba de suma de rangos de Wilcoxon de una sola muestra | Prueba de Mann-Whitney-Wilcoxon para muestras independientes | Prueba de Wilcoxon para rangos signados | Prueba de Kruskal-Wallis |
+| :--- | :--- | :--- | :--- |
+| Se utiliza para evaluar si la mediana de una muestra es diferente de un valor específico. Es especialmente útil cuando los datos no siguen una distribución normal. | Compara dos grupos independientes para determinar si provienen de la misma población. Es una alternativa a la prueba *t* de Student para muestras independientes. | Se utiliza para comparar dos muestras relacionadas o emparejadas. Es una alternativa a la prueba *t* de Student para muestras relacionadas o pareadas. | Se utiliza para comparar tres o más grupos independientes. Es una alternativa al ANOVA cuando los supuestos de normalidad no se cumplen. |
+
+Veamos cómo funcionan estas pruebas...
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra
+
+.pull-left[
+**1** Se establecen las hipótesis:
+
+`\(H_{0}:\:Med=Med_{0}\)`
+
+`\(H_{a}:\:Med \neq Med_{0}\\H_{a}:\:Med &gt; Med_{0}\\H_{a}:\:Med &lt; Med_{0}\)`
+
+**2** Se resta la mediana hipotética (`\(Med_{0}\)`) de las observaciones. **Las diferencias cuyo resultado sea cero, se descartan**.
+
+**3** Se expresan las diferencias como valores absolutos.
+
+**4** Se ordenan las diferencias en orden ascendente.
+
+**5** Se clasifican las diferencias (se hace un *ranking*). Si hay empates (valores repetidos), se calcula la posición promedio.
+
+**6** Se vuelven a asignar los signos originales de las diferencias a los *rankings*.
+]
+
+.pull-right[
+**7** Se calcula el cuadrado de cada *ranking* (`\(R_{i}^{2}\)`).
+
+**8** Se calcula el estadístico de prueba `\(T\)`:
+
+`\(T=\frac{\sum\limits_{i=1}^{n}R_{i}}{\sqrt{\sum\limits_{i=1}^{n}R_{i}^{2}}}\text{ (Si hay empates).}\\T=\sum\limits_{i=1}^{k}R_{i}^{+}\text{ (Si no hay empates).}\)`
+
+**9** El estadístico de prueba `\(T\)` se compara contra un valor crítico de `\(Z\)` de una tabla normal estandarizada:
+
+`\(|T| \geq Z_{\frac{\alpha}{2}}\text{ (DC)}\\T \geq Z_{\alpha}\text{ (CD)}\\T \leq -Z_{\alpha}\text{ (CI)}\)`
+
+Si se cumple alguna de estas propuestas (dependiendo de la direccionalidad de la hipótesis), no se acepta `\(H_{0}\)`.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra - Ejemplo
+
+Para este caso, se usarán datos provenientes de la medición de individuos vegetales (árboles y arbustos) del [Jardín Botánico de Caracas](https://www.openstreetmap.org/relation/3380028) y de [Cerro El Volcán](https://www.openstreetmap.org/relation/10703464).
+
+
+```
+## # A tibble: 281 × 8
+##    individuo lugar muerto   cap   dap area.basal altura clase.dap         
+##        &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;             
+##  1         1 CV    No      37.5 11.9     0.0990    9    DAP &gt; 10          
+##  2         2 CV    No     119   37.9     0.402    16    DAP &gt; 10          
+##  3         3 CV    No      72   22.9     1.03     16    DAP &gt; 10          
+##  4         4 CV    No       5    1.59    0.00497   2.7  1 cm &lt; DAP ≤ 10 cm
+##  5         5 CV    No      42   13.4     0.351    10.5  DAP &gt; 10          
+##  6         6 CV    No       7    2.23    0.00975   5.25 1 cm &lt; DAP ≤ 10 cm
+##  7         7 CV    Sí      29    9.23    0.167    NA    1 cm &lt; DAP ≤ 10 cm
+##  8         8 CV    No      29    9.23    0.167    13    1 cm &lt; DAP ≤ 10 cm
+##  9         9 CV    No      55   17.5     0.602    15    DAP &gt; 10          
+## 10        10 CV    No      12.5  3.98    0.0311    4.5  1 cm &lt; DAP ≤ 10 cm
+## # ℹ 271 more rows
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra - Ejemplo
+
+Seleccionamos 20 muestras aleatorias de altura (en metros) de individuos de Cerro El Volcán (CV):
+
+
+```
+##    individuo altura
+## 1          1   5.00
+## 2          2   2.00
+## 3          3   7.00
+## 4          4  12.00
+## 5          5  12.00
+## 6          6   3.00
+## 7          7   3.00
+## 8          8  10.50
+## 9          9  15.00
+## 10        10   4.50
+## 11        11   6.00
+## 12        12   6.75
+## 13        13  13.50
+## 14        14   2.20
+## 15        15   8.25
+## 16        16   3.00
+## 17        17   9.00
+## 18        18   7.50
+## 19        19   4.50
+## 20        20   4.50
+```
+
+Cuya mediana en este caso es 6.375 m.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra - Ejemplo
+
+Vamos a probar las siguientes hipótesis:
+
+`\(H_{0}:\: Med = 6\\H_{a}:\: Med \neq 6\)`
+
+Restamos la mediana propuesta de cada valor de altura:
+
+
+```
+##  [1] -1.00 -4.00  1.00  6.00  6.00 -3.00 -3.00  4.50  9.00 -1.50  0.00  0.75  7.50
+## [14] -3.80  2.25 -3.00  3.00  1.50 -1.50 -1.50
+```
+
+Sacamos su valor absoluto y ordenamos de forma ascendente el valor absoluto de las diferencias (como hay una diferencia igual a 0, la eliminamos):
+
+
+```
+##  [1] 0.75 1.00 1.00 1.50 1.50 1.50 1.50 2.25 3.00 3.00 3.00 3.00 3.80 4.00 4.50 6.00
+## [17] 6.00 7.50 9.00
+```
+
+Clasificamos los datos (*ranking*):
+
+
+```
+##  [1]  1.0  2.5  2.5  5.5  5.5  5.5  5.5  8.0 10.5 10.5 10.5 10.5 13.0 14.0 15.0 16.5
+## [17] 16.5 18.0 19.0
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra - Ejemplo
+
+Reasignamos a cada valor del *ranking* su signo correspondiente:
+
+
+```
+##  [1]   1.0  -2.5   2.5  -5.5  -5.5  -5.5   5.5   8.0 -10.5 -10.5 -10.5  10.5 -13.0
+## [14] -14.0  15.0  16.5  16.5  18.0  19.0
+```
+
+Se calcula la suma de los *rankings* y la suma de los cuadrados de los *rankings*:
+
+
+```
+## # A tibble: 1 × 2
+##      Ri Ri_cuadrado
+##   &lt;dbl&gt;       &lt;dbl&gt;
+## 1    35        2459
+```
+
+Se calcula el estadístico `\(T\)`:
+
+`\(T=\frac{35}{\sqrt{2459}}=0.70581\)`
+
+Esto se compara contra un `\(Z_{\frac{\alpha}{2}}=1.96\)`:
+
+`\(|0.70581| \geq 1.96\)`
+
+Lo cual, evidentemente, no es cierto. Por lo tanto, tenemos, con un `\(\alpha=0.05\)`, suficiente evidencia para aceptar `\(H_{0}\)`. Por lo tanto, la mediana de los datos es similar a 6.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
