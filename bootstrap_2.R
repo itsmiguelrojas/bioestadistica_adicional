@@ -30,12 +30,31 @@ salida.campo %>%
 # Separar datos de altura ----
 
 alt.cv <- salida.campo %>%
-  filter(lugar == 'CV', !is.na(altura)) %>%
+  filter(lugar == 'CV', muerto == 'No') %>%
   pull(altura)
 
 alt.jb <- salida.campo %>%
-  filter(lugar == 'JB', !is.na(altura)) %>%
+  filter(lugar == 'JB', muerto == 'No') %>%
   pull(altura)
+
+set.seed(123)
+
+alt.cv.sample <- alt.cv %>%
+  as_tibble() %>%
+  slice_sample(n = 30) %>%
+  pull()
+
+set.seed(123)
+
+alt.jb.sample <- alt.jb %>%
+  as_tibble() %>%
+  slice_sample(n = 30) %>%
+  pull()
+
+salida.campo.mw <- tibble(
+  lugar = factor(rep(c('CV','JB'), each = 30)),
+  altura = c(alt.cv.sample, alt.jb.sample)
+)
 
 # Centrar en cero ----
 alt.cv.ho <- alt.cv - mean(alt.cv)

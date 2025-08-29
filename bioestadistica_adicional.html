@@ -34,7 +34,6 @@ background-size: cover
 .pull-left[
 # Hacia una bioestadística más completa <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"/></svg>
 ### Br. Miguel Rojas
-#### 15 de agosto de 2025
 &lt;p style="font-size: 12px;"&gt;&lt;em&gt;Imagen de la portada: &lt;a href="https://unsplash.com/es/fotos/palos-de-madera-verdes-y-marrones-I-0OS5iRp0Q" style="color: #D6D6D6; text-decoration: underline;"&gt;Markus Spiske&lt;/a&gt; en Unsplash. Editado.&lt;/em&gt;&lt;/p&gt;
 ]
 
@@ -76,21 +75,24 @@ class: justify, middle, animate__animated, animate__fadeIn
 
 ## Contenido (más o menos...) <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M192 0c-41.8 0-77.4 26.7-90.5 64H64C28.7 64 0 92.7 0 128V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H282.5C269.4 26.7 233.8 0 192 0zm0 64a32 32 0 1 1 0 64 32 32 0 1 1 0-64zM72 272a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm104-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16zM72 368a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zm88 0c0-8.8 7.2-16 16-16H304c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16z"/></svg>
 
-1. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors y prueba de normalidad de Shapiro-Wilk.
-2. Prueba de Levene para homogeneidad de varianzas.
-3. Análisis de varianza (ANOVA) y prueba *post hoc* de Tukey.
-4. Pruebas no paramétricas:
+1. Consideraciones iniciales.
+2. Prueba de normalidad de Kolmogorov-Smirnov con corrección de Lilliefors y prueba de normalidad de Shapiro-Wilk.
+3. Prueba de Levene para homogeneidad de varianzas.
+4. Análisis de varianza (ANOVA) y prueba *post hoc* de Tukey.
+5. Pruebas no paramétricas:
   - Prueba de suma de rangos de Wilcoxon de una sola muestra.
   - Prueba de Mann-Whitney-Wilcoxon para muestras independientes.
   - Prueba de Wilcoxon para rangos signados.
   - Prueba de Kruskal-Wallis.
-5. Regresión lineal, prueba de hipótesis de correlación y prueba de hipótesis de la pendiente.
-6. Remuestreo por bootstrapping.
+6. Regresión lineal, prueba de hipótesis de correlación y prueba de hipótesis de la pendiente.
+7. Remuestreo por bootstrapping.
 
 ---
 class: justify, middle, animate__animated, animate__fadeIn
 
 ## ¿Qué vamos a aprender? <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M160 96a96 96 0 1 1 192 0A96 96 0 1 1 160 96zm80 152V512l-48.4-24.2c-20.9-10.4-43.5-17-66.8-19.3l-96-9.6C12.5 457.2 0 443.5 0 427V224c0-17.7 14.3-32 32-32H62.3c63.6 0 125.6 19.6 177.7 56zm32 264V248c52.1-36.4 114.1-56 177.7-56H480c17.7 0 32 14.3 32 32V427c0 16.4-12.5 30.2-28.8 31.8l-96 9.6c-23.2 2.3-45.9 8.9-66.8 19.3L272 512z"/></svg>
+
+- Evaluar y explorar inicialmente los datos para formular las hipótesis adecuadas.
 
 - Verificar la normalidad de los datos y aprender a aplicar la prueba de Lilliefors y la prueba de Shapiro-Wilk para determinar si un conjunto de datos sigue una distribución normal.
 
@@ -105,6 +107,62 @@ class: justify, middle, animate__animated, animate__fadeIn
 - Calcular y interpretar los coeficientes de correlación de Pearson y Spearman para evaluar la relación entre dos variables.
 
 - Comprender el concepto de bootstrapping y su utilidad en la estimación de intervalos de confianza y p-valores.
+
+---
+class: middle, inverse, center, animate__animated, animate__fadeIn
+background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
+background-size: cover
+
+.pull-left[
+### Consideraciones iniciales
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Exploración de datos y planteamiento de hipótesis
+
+Al momento de realizar un experimento o un estudio observacional, es importante recolectar los datos que de este puedan surgir, bien sea mediante instrumentos de medición o por observación directa. Esto nos permitirá después justificar la razón de nuestro estudio.
+
+.pull-left[
+&lt;img src="img/wood2007.jpeg" style="border: 1px black solid;"&gt;
+]
+
+.pull-right[
+Evaluación histológica de secciones sagitales de tejido uterino de ratón adulto teñidas con hematoxilina y eosina derivadas de las cuatro etapas del ciclo estral natural (A-D). Niveles séricos de 17β-estradiol y progesterona en función de la etapa del ciclo estral (E y F). Ancho uterino en función de los niveles séricos de 17β-estradiol y progesterona (G y H). Ancho uterino en función de la etapa del ciclo estral (I). Imagen tomada y modificada de: Wood, G. A., Fata, J. E., Watson, K. L. M. y Khokha, R. (2007). Circulating hormones and estrous stage predict cellular and stromal remodeling in murine uterus. *Reproduction*, **133(5)**: 1035-1044. DOI: [10.1530/REP-06-0302](https://doi.org/10.1530/REP-06-0302).
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Exploración de datos y planteamiento de hipótesis
+
+Al momento de realizar un experimento o un estudio observacional, es importante recolectar los datos que de este puedan surgir, bien sea mediante instrumentos de medición o por observación directa. Esto nos permitirá después justificar la razón de nuestro estudio.
+
+.pull-left[
+&lt;img src="img/wood2007_2.jpeg" style="border: 1px black solid;"&gt;
+]
+
+.pull-right[
+Proliferación de tipos celulares en el útero de ratón durante el ciclo estral. Estos fueron marcados con anti-PCNA (anti antígeno nuclear de proliferación celular). Imagen tomada de: Wood, G. A., Fata, J. E., Watson, K. L. M. y Khokha, R. (2007). Circulating hormones and estrous stage predict cellular and stromal remodeling in murine uterus. *Reproduction*, **133(5)**: 1035-1044. DOI: [10.1530/REP-06-0302](https://doi.org/10.1530/REP-06-0302).
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Exploración de datos y planteamiento de hipótesis
+
+Es crucial realizar una exploración inicial de los datos recolectados, con el fin de describir patrones generales que muestren el comportamiento. Esto puede lograrse por medio del cálculo de estimadores (promedio, varianza, mediana, moda, etc.) y mediante análisis de gráficos.
+
+La exploración inicial de los datos permite generar hipótesis, que luego pueden ser sometidas a prueba mediante las pruebas estadísticas adecuadas.
+
+Tomado de [Wood y col. (2007)](https://doi.org/10.1530/REP-06-0302):
+
+&gt; #### Statistical analysis
+&gt;
+&gt; To assess whether differences in the indices for proliferation, apoptosis, basement membrane integrity, and mRNA levels observed at specific stages of the estrous cycle were statistically significant, an ANOVA test was performed on the entire group. If the entire group was significant at P &lt; 0.05, then pairwise comparisons of stage-specific mean values were performed using Fisher’s least significant difference test (LSD). Stages were considered significant if they were in a group that passed the ANOVA test and significantly different from another stage as determined by the LSD test. All values were expressed as the mean ± s.e.m. To determine the degree of linear relationship between various indices, analysis was performed on all mice in the study regardless of estrous stage, and the coefficient of correlation (r) was calculated. The degrees of freedom for all correlation analyses were 31 (since two mice were omitted from analyses related to hormone levels due to serum sample problems).
+
+La interpretación de hallazgos estadísticos debe ser capaz de diferenciar entre **significancia** y **relevancia**, ya que un resultado puede ser estadísticamente significativo sin tener necesariamente un impacto biológico práctico.
 
 ---
 class: middle, inverse, center, animate__animated, animate__fadeIn
@@ -913,7 +971,7 @@ A pesar de que existen múltiples pruebas no paramétricas, nos vamos a fijar es
 
 | Prueba de suma de rangos de Wilcoxon de una sola muestra | Prueba de Mann-Whitney-Wilcoxon para muestras independientes | Prueba de Wilcoxon para rangos signados | Prueba de Kruskal-Wallis |
 | :--- | :--- | :--- | :--- |
-| Se utiliza para evaluar si la mediana de una muestra es diferente de un valor específico. Es especialmente útil cuando los datos no siguen una distribución normal. | Compara dos grupos independientes para determinar si provienen de la misma población. Es una alternativa a la prueba *t* de Student para muestras independientes. | Se utiliza para comparar dos muestras relacionadas o emparejadas. Es una alternativa a la prueba *t* de Student para muestras relacionadas o pareadas. | Se utiliza para comparar tres o más grupos independientes. Es una alternativa al ANOVA cuando los supuestos de normalidad no se cumplen. |
+| Se utiliza para evaluar si la mediana de una muestra es diferente de un valor específico. Es especialmente útil cuando los datos no siguen una distribución normal. | Compara dos grupos independientes para determinar si provienen de la misma población. Es una alternativa a la prueba *t* de Student para muestras independientes. | Similar a la prueba de suma de rangos de Wilcoxon de una sola muestra. Se utiliza para comparar dos muestras relacionadas o emparejadas. Es una alternativa a la prueba *t* de Student para muestras relacionadas o pareadas. | Se utiliza para comparar tres o más grupos independientes. Es una alternativa al ANOVA cuando los supuestos de normalidad no se cumplen. |
 
 Veamos cómo funcionan estas pruebas...
 
@@ -941,6 +999,8 @@ class: justify, animate__animated, animate__fadeIn
 ]
 
 .pull-right[
+**Primer caso**: Si `\(n&gt;25\)`
+
 **7** Se calcula el cuadrado de cada *ranking* (`\(R_{i}^{2}\)`).
 
 **8** Se calcula el estadístico de prueba `\(T\)`:
@@ -951,6 +1011,31 @@ class: justify, animate__animated, animate__fadeIn
 
 `\(|T| \geq Z_{\frac{\alpha}{2}}\text{ (DC)}\\T \geq Z_{\alpha}\text{ (CD)}\\T \leq -Z_{\alpha}\text{ (CI)}\)`
 
+Si se cumple alguna de estas propuestas (dependiendo de la direccionalidad de la hipótesis), no se acepta `\(H_{0}\)`.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra
+
+.pull-left[
+**Segundo caso**: Si `\(n&lt;25\)`
+
+**7** Se calcula la suma de los *rankings* positivos (`\(R_{i}^{+}\)`).
+
+**8** El estadístico de prueba `\(T\)` será:
+
+`\(T=\sum\limits_{i=1}^{n}R_{i}^{+}\)`
+
+**9** Se busca el valor de `\(T_{\text{crítico}}\)` en la [tabla de Wilcoxon de rangos signados](https://real-statistics.com/statistics-tables/wilcoxon-signed-ranks-table/), con el valor de `\(\alpha\)` especificado (normalmente 0.05). Las hipótesis se contrastan como:
+
+`\(T \leq T_{\text{crítico; }\alpha} \text{ (DC)}\\T \leq T_{\text{crítico; }2 \alpha} \text{ (CD)}\\-T \geq -T_{\text{crítico; }2 \alpha} \text{ (CI)}\)`
+
+**Nota**: Para las pruebas de una sola cola, se duplica el valor de `\(\alpha\)` y se busca en la tabla correspondiente.
+]
+
+.pull-right[
 Si se cumple alguna de estas propuestas (dependiendo de la direccionalidad de la hipótesis), no se acepta `\(H_{0}\)`.
 ]
 
@@ -984,34 +1069,28 @@ class: justify, animate__animated, animate__fadeIn
 
 ## Prueba de suma de rangos de Wilcoxon de una sola muestra - Ejemplo
 
-Seleccionamos 20 muestras aleatorias de altura (en metros) de individuos de Cerro El Volcán (CV):
+![](bioestadistica_adicional_files/figure-html/distribucion_5-1.png)&lt;!-- --&gt;
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra - Ejemplo
+
+Seleccionamos 30 muestras aleatorias de altura (en metros) de individuos de Cerro El Volcán (CV):
 
 
 ```
-##    individuo altura
-## 1          1   5.00
-## 2          2   2.00
-## 3          3   7.00
-## 4          4  12.00
-## 5          5  12.00
-## 6          6   3.00
-## 7          7   3.00
-## 8          8  10.50
-## 9          9  15.00
-## 10        10   4.50
-## 11        11   6.00
-## 12        12   6.75
-## 13        13  13.50
-## 14        14   2.20
-## 15        15   8.25
-## 16        16   3.00
-## 17        17   9.00
-## 18        18   7.50
-## 19        19   4.50
-## 20        20   4.50
+##  [1]  5.00  2.00  7.00 12.00 12.00  3.00  3.00 10.50 15.00  4.50  6.00  6.75 13.50
+## [14]  2.20  8.25  3.00  9.00  7.50  4.50  4.50  9.75  7.50 11.25 16.00 13.00  4.50
+## [27]  8.25  6.00 10.00  3.00
 ```
 
-Cuya mediana en este caso es 6.375 m.
+Cuya mediana en este caso es 7.25 m.
+
+
+```
+## [1] 7.25
+```
 
 ---
 class: justify, animate__animated, animate__fadeIn
@@ -1020,30 +1099,31 @@ class: justify, animate__animated, animate__fadeIn
 
 Vamos a probar las siguientes hipótesis:
 
-`\(H_{0}:\: Med = 6\\H_{a}:\: Med \neq 6\)`
+`\(H_{0}:\: Med = 7\\H_{a}:\: Med \neq 7\)`
 
 Restamos la mediana propuesta de cada valor de altura:
 
 
 ```
-##  [1] -1.00 -4.00  1.00  6.00  6.00 -3.00 -3.00  4.50  9.00 -1.50  0.00  0.75  7.50
-## [14] -3.80  2.25 -3.00  3.00  1.50 -1.50 -1.50
+##  [1] -2.00 -5.00  0.00  5.00  5.00 -4.00 -4.00  3.50  8.00 -2.50 -1.00 -0.25  6.50
+## [14] -4.80  1.25 -4.00  2.00  0.50 -2.50 -2.50  2.75  0.50  4.25  9.00  6.00 -2.50
+## [27]  1.25 -1.00  3.00 -4.00
 ```
 
 Sacamos su valor absoluto y ordenamos de forma ascendente el valor absoluto de las diferencias (como hay una diferencia igual a 0, la eliminamos):
 
 
 ```
-##  [1] 0.75 1.00 1.00 1.50 1.50 1.50 1.50 2.25 3.00 3.00 3.00 3.00 3.80 4.00 4.50 6.00
-## [17] 6.00 7.50 9.00
+##  [1] 0.25 0.50 0.50 1.00 1.00 1.25 1.25 2.00 2.00 2.50 2.50 2.50 2.50 2.75 3.00 3.50
+## [17] 4.00 4.00 4.00 4.00 4.25 4.80 5.00 5.00 5.00 6.00 6.50 8.00 9.00
 ```
 
 Clasificamos los datos (*ranking*):
 
 
 ```
-##  [1]  1.0  2.5  2.5  5.5  5.5  5.5  5.5  8.0 10.5 10.5 10.5 10.5 13.0 14.0 15.0 16.5
-## [17] 16.5 18.0 19.0
+##  [1]  1.0  2.5  2.5  4.5  4.5  6.5  6.5  8.5  8.5 11.5 11.5 11.5 11.5 14.0 15.0 16.0
+## [17] 18.5 18.5 18.5 18.5 21.0 22.0 24.0 24.0 24.0 26.0 27.0 28.0 29.0
 ```
 
 ---
@@ -1055,8 +1135,9 @@ Reasignamos a cada valor del *ranking* su signo correspondiente:
 
 
 ```
-##  [1]   1.0  -2.5   2.5  -5.5  -5.5  -5.5   5.5   8.0 -10.5 -10.5 -10.5  10.5 -13.0
-## [14] -14.0  15.0  16.5  16.5  18.0  19.0
+##  [1]  -1.0   2.5   2.5  -4.5  -4.5   6.5   6.5  -8.5   8.5 -11.5 -11.5 -11.5 -11.5
+## [14]  14.0  15.0  16.0 -18.5 -18.5 -18.5 -18.5  21.0 -22.0 -24.0  24.0  24.0  26.0
+## [27]  27.0  28.0  29.0
 ```
 
 Se calcula la suma de los *rankings* y la suma de los cuadrados de los *rankings*:
@@ -1066,18 +1147,436 @@ Se calcula la suma de los *rankings* y la suma de los cuadrados de los *rankings
 ## # A tibble: 1 × 2
 ##      Ri Ri_cuadrado
 ##   &lt;dbl&gt;       &lt;dbl&gt;
-## 1    35        2459
+## 1    66        8541
 ```
 
 Se calcula el estadístico `\(T\)`:
 
-`\(T=\frac{35}{\sqrt{2459}}=0.70581\)`
+`\(T=\frac{66}{\sqrt{8541}}=0.71415\)`
 
 Esto se compara contra un `\(Z_{\frac{\alpha}{2}}=1.96\)`:
 
-`\(|0.70581| \geq 1.96\)`
+`\(|0.71415| \geq 1.96\)`
 
-Lo cual, evidentemente, no es cierto. Por lo tanto, tenemos, con un `\(\alpha=0.05\)`, suficiente evidencia para aceptar `\(H_{0}\)`. Por lo tanto, la mediana de los datos es similar a 6.
+Lo cual, evidentemente, no es cierto. Por lo tanto, tenemos, con un `\(\alpha=0.05\)`, suficiente evidencia para aceptar `\(H_{0}\)`. Por lo tanto, la mediana de los datos es similar a 7.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra - Ejemplo
+
+A manera de ejemplo, también podemos calcular `\(R_{i}^{+}\)` y compararlo con el `\(T_{\text{crítico}}\)` de la tabla:
+
+`\(R_{i}^{+}=2.5+2.5+6.5+\dots+29=250.5\)`
+
+`\(T=min(R_{i}^{+},R_{i}^{-})=184.5\)`
+
+`\(T_{\text{crítico; }0.05}=126\)`
+
+`\(250.5 \leq 126\)` ❌
+
+Por lo tanto, con un valor de `\(\alpha=0.05\)`, tenemos suficiente evidencia para aceptar `\(H_{0}\)`. Concluimos que la mediana es similar a 7.
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra - Ejemplo
+
+La salida en R para esta prueba es la siguiente:
+
+
+```
+## 
+## 	Wilcoxon signed rank test with continuity correction
+## 
+## data:  salida.campo.muestra
+## V = 250.5, p-value = 0.4819
+## alternative hypothesis: true location is not equal to 7
+## 95 percent confidence interval:
+##  5.974950 9.100027
+## sample estimates:
+## (pseudo)median 
+##        7.50001
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de suma de rangos de Wilcoxon de una sola muestra - Ejemplo
+
+También podemos hacer la prueba en Excel, con un poco de ingenio:
+
+&lt;div class="img-container"&gt;
+  &lt;img src="img/wilcoxon_excel.png" width="480px" style="border: 1px black solid;"/&gt;
+&lt;/div&gt;
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Mann-Whitney-Wilcoxon para muestras independientes
+
+.pull-left[
+**1** Se establecen las hipótesis:
+
+`\(H_{0}:\:Med_{1}=Med_{2}\)`
+
+`\(H_{a}:\:Med_{1} \neq Med_{2}\\H_{a}:\:Med_{1} &gt; Med_{2}\\H_{a}:\:Med_{1} &lt; Med_{2}\)`
+
+**2** Los datos de ambas muestras se unen, debidamente identificados, y se ordenan de forma ascendente.
+
+**3** Se clasifican las diferencias (se hace un *ranking*). Si hay empates (valores repetidos), se calcula la posición promedio.
+
+**4** Se suman los valores del *ranking* 1 (`\(R_{1}\)`) y del *ranking* 2 (`\(R_{2}\)`).
+
+**5** Se calcula el estadístico `\(U\)` para ambas muestras:
+
+`\(U_{1}=n_{1}n_{2}+\frac{n_{1}(n_{1}+1)}{2}-R_{1}\\U_{2}=n_{1}n_{2}+\frac{n_{2}(n_{2}+1)}{2}-R_{2}\)`
+]
+
+.pull-right[
+**6** Si no hay empates o representan menos del 10% de todos los datos (`\(n=n_{1}+n_{2}\)`), el estadístico de prueba `\(U\)` a escoger será:
+
+`\(U=min(U_{1},U_{2})\)`
+
+Si la cantidad de empates es igual o supera el 10% de `\(n\)`, o si `\(n_{1}\)` y `\(n_{2}\)` son mayores a 20, entonces se hace una correción a `\(Z\)` de la forma:
+
+`\(Z=\frac{U-\mu}{\sigma}\)`
+
+en donde:
+
+`\(\mu=\frac{n_{1}n_{2}}{2}\\ \sigma^{2}=\left(\frac{n_{1}n_{2}}{n^{2}-n}\right)\left(\frac{n^{3}-n}{12}-\sum\limits_{i=1}^{k}\frac{f_{i}^{3}-f_{i}}{12}\right)\)`
+
+siendo `\(k\)` el número total de empates, `\(f_{i}\)` el número de observaciones que comparten el rango de empate `\(i\)` y `\(n\)` el número total de observaciones.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Mann-Whitney-Wilcoxon para muestras independientes
+
+.pull-left[
+**7** Si no hay empates, o son menos del 10%, se busca un valor `\(U_{\text{crítico}}\)` en la [tabla de Mann-Whitney](https://real-statistics.com/statistics-tables/mann-whitney-table/) con el valor de `\(\alpha\)` especificado (normalmente 0.05). Los valores se contrastan de la siguiente forma:
+
+`\(U \leq U_{\text{crítico};\:\alpha} \text{ (DC)}\)`
+
+Si la prueba es de una sola cola, se duplica el valor de `\(\alpha\)` y se busca el valor de `\(U_{\text{crítico}}\)` en la tabla correspondiente:
+
+`\(U \leq U_{\text{crítico};\: 2 \alpha} \text{ (CD)}\\-U \geq -U_{\text{crítico};\: 2 \alpha} \text{ (CI)}\)`
+
+Si los valores de `\(n_{1}\)` y `\(n_{2}\)` son mayores a 20, el estadístico de prueba se cambia por `\(Z\)`, tal y como está descrito en el paso 6:
+
+`\(|Z| \geq Z_{\frac{\alpha}{2}} \text{ (DC)}\\Z \geq Z_{\alpha} \text{ (CD)}\\Z \leq -Z_{\alpha} \text{ (CI)}\)`
+]
+
+.pull-right[
+Si alguno de los contrastes para `\(U\)` o para `\(Z\)` se cumple (dependiendo de la direccionalidad de la prueba), entonces se dice que no se puede aceptar `\(H_{0}\)`.
+
+**Propiedades importantes a tener en cuenta**
+
+1. **Propiedad 1**:
+
+  `\(U_{1}+U_{2}=n_{1}n_{2}\)`
+  
+2. **Propiedad 2**: Para unos `\(n_{1}\)` y `\(n_{2}\)` lo suficientemente grandes, el estadístico `\(U\)` se distribuye de manera aprox. normal (`\(\mathcal{N}(\mu,\sigma^{2})\)`), tal que
+
+  `\(\mu=\frac{n_{1}n_{2}}{2}\\ \sigma^{2}=\frac{n_{1}n_{2}(n_{1}+n_{2}+1)}{12}\)`
+  
+3. **Propiedad 3**: Si el número de empates es superior al 10% de `\(n\)`, entonces:
+
+  `\(\sigma^{2}=\left(\frac{n_{1}n_{2}}{n^{2}-n}\right)\left(\frac{n^{3}-n}{12}-\sum\limits_{i=1}^{k}\frac{f_{i}^{3}-f_{i}}{12}\right)\)`
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Mann-Whitney-Wilcoxon para muestras independientes - Ejemplo
+
+Pondremos a prueba las hipótesis:
+
+`\(H_{0}:Med_{CV}=Med_{JB}\\H_{a}:Med_{CV} \neq Med_{JB}\)`
+
+Usaremos las mismas 30 muestras de altura para individuos vegetales de Cerro El Volcán (CV), y adicionalmente vamos a escoger 30 muestras aleatorias para el Jardín Botánico.
+
+
+
+**Cerro El Volcán (CV)**:
+
+
+```
+##  [1]  5.00  2.00  7.00 12.00 12.00  3.00  3.00 10.50 15.00  4.50  6.00  6.75 13.50
+## [14]  2.20  8.25  3.00  9.00  7.50  4.50  4.50  9.75  7.50 11.25 16.00 13.00  4.50
+## [27]  8.25  6.00 10.00  3.00
+```
+
+**Jardín Botánico de Caracas (JB)**:
+
+
+```
+##  [1]  4.000  2.500  2.200  2.250  2.000  2.600  2.250  2.550  3.000  0.750  3.300
+## [12] 13.000  0.750  2.500  5.250  6.000  1.800 11.000  1.875  7.000  4.000 14.000
+## [23]  3.000  2.000 11.250  9.000  3.000  1.800  2.250  7.000
+```
+
+Cuyas medianas son respectivamente 7.25 m (CV) y 2.80 m (JB).
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Mann-Whitney-Wilcoxon para muestras independientes - Ejemplo
+
+Unimos los datos de ambas muestras y los ordenamos de forma ascendente, manteniendo la identificación de cada una:
+
+
+```
+##     JB     JB     JB     JB     JB     CV     JB     JB     CV     JB     JB     JB 
+##  0.750  0.750  1.800  1.800  1.875  2.000  2.000  2.000  2.200  2.200  2.250  2.250 
+##     JB     JB     JB     JB     JB     CV     CV     CV     CV     JB     JB     JB 
+##  2.250  2.500  2.500  2.550  2.600  3.000  3.000  3.000  3.000  3.000  3.000  3.000 
+##     JB     JB     JB     CV     CV     CV     CV     CV     JB     CV     CV     JB 
+##  3.300  4.000  4.000  4.500  4.500  4.500  4.500  5.000  5.250  6.000  6.000  6.000 
+##     CV     CV     JB     JB     CV     CV     CV     CV     CV     JB     CV     CV 
+##  6.750  7.000  7.000  7.000  7.500  7.500  8.250  8.250  9.000  9.000  9.750 10.000 
+##     CV     JB     CV     JB     CV     CV     CV     JB     CV     JB     CV     CV 
+## 10.500 11.000 11.250 11.250 12.000 12.000 13.000 13.000 13.500 14.000 15.000 16.000
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Mann-Whitney-Wilcoxon para muestras independientes - Ejemplo
+
+De esta forma, se crea el siguiente *ranking*:
+
+
+```
+##   JB   JB   JB   JB   JB   CV   JB   JB   CV   JB   JB   JB   JB   JB   JB   JB 
+##  1.5  1.5  3.5  3.5  5.0  7.0  7.0  7.0  9.5  9.5 12.0 12.0 12.0 14.5 14.5 16.0 
+##   JB   CV   CV   CV   CV   JB   JB   JB   JB   JB   JB   CV   CV   CV   CV   CV 
+## 17.0 21.0 21.0 21.0 21.0 21.0 21.0 21.0 25.0 26.5 26.5 29.5 29.5 29.5 29.5 32.0 
+##   JB   CV   CV   JB   CV   CV   JB   JB   CV   CV   CV   CV   CV   JB   CV   CV 
+## 33.0 35.0 35.0 35.0 37.0 39.0 39.0 39.0 41.5 41.5 43.5 43.5 45.5 45.5 47.0 48.0 
+##   CV   JB   CV   JB   CV   CV   CV   JB   CV   JB   CV   CV 
+## 49.0 50.0 51.5 51.5 53.5 53.5 55.5 55.5 57.0 58.0 59.0 60.0
+```
+
+**Cerro El Volcán (CV)**:
+
+
+```
+##  [1]  7.0  9.5 21.0 21.0 21.0 21.0 29.5 29.5 29.5 29.5 32.0 35.0 35.0 37.0 39.0 41.5
+## [17] 41.5 43.5 43.5 45.5 47.0 48.0 49.0 51.5 53.5 53.5 55.5 57.0 59.0 60.0
+```
+
+**Jardín Botánico de Caracas (JB)**:
+
+
+```
+##  [1]  1.5  1.5  3.5  3.5  5.0  7.0  7.0  9.5 12.0 12.0 12.0 14.5 14.5 16.0 17.0 21.0
+## [17] 21.0 21.0 25.0 26.5 26.5 33.0 35.0 39.0 39.0 45.5 50.0 51.5 55.5 58.0
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Mann-Whitney-Wilcoxon para muestras independientes - Ejemplo
+
+Con cada uno de los *rankings* separados, calculamos su suma:
+
+`\(R_{1}=7+9.5+21+\dots+60=1146\\R_{2}=1.5+1.5+3.5+\dots+58=684\)`
+
+Calculamos `\(U\)` para cada grupo:
+
+`\(U_{1}=(30)(30)+\frac{30(30+1)}{2}-1146=219\\U_{2}=(30)(30)+\frac{30(30+1)}{2}-684=681\)`
+
+Como `\(n_{1}\)` y `\(n_{2}\)` son mayores a 20, debemos hacer una aproximación a la normal por medio de `\(Z\)`. Para ello, debemos calcular `\(\mu\)` y `\(\sigma\)`:
+
+`\(\mu=\frac{(30)(30)}{2}=450\)`
+
+Para calcular `\(\sigma\)`, debemos contar el número de empates...
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Mann-Whitney-Wilcoxon para muestras independientes - Ejemplo
+
+.pull-left[
+Hay un total de `\(k=17\)` grupos con empates:
+
+- 1.5: 2 empates.
+- 3.5: 2 empates.
+- 7: 3 empates.
+- 9.5: 2 empates.
+- 12: 3 empates.
+- 14.5: 2 empates.
+- 21: 7 empates.
+- 26.5: 2 empates.
+- 29.5: 4 empates.
+- 35: 3 empates.
+- 39: 3 empates.
+- 41.5: 2 empates.
+- 43.5: 2 empates.
+- 45.5: 2 empates.
+- 51.5: 2 empates.
+- 53.5: 2 empates.
+- 55.5: 2 empates.
+]
+
+.pull-right[
+Por lo tanto:
+
+`\(\sum\limits_{i=1}^{17}\frac{f_{i}^{3}-f_{i}}{12}=\frac{1}{12}\left((2^{3}-2)+(2^{3}-2)+(3^{3}-3)+\dots\right)\\=46.5\)`
+
+`\(\sigma^{2}=\left(\frac{(30)(30)}{60^{2}-60}\right)\left(\frac{60^{3}-60}{12}-46.5\right)=4563.178\)`
+
+Así, el valor del estadístico `\(Z\)` es:
+
+`\(Z=\frac{219-450}{\sqrt{4563.178}}=-3.41962\)`
+
+Comparamos este valor contra un `\(Z_{\text{crítico}}\)` de 1.96:
+
+`\(|-3.41962| \geq 1.96\)` ✅
+
+Por lo tanto, no tenemos suficiente evidencia para aceptar `\(H_{0}\)`. Concluimos que la diferencia entre alturas de individuos vegetales de CV y JB es distinta.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Mann-Whitney-Wilcoxon para muestras independientes - Ejemplo
+
+Más R:
+
+
+```
+## 
+## 	Asymptotic Wilcoxon-Mann-Whitney Test
+## 
+## data:  altura by lugar (CV, JB)
+## Z = 3.4196, p-value = 0.0006271
+## alternative hypothesis: true mu is not equal to 0
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Mann-Whitney-Wilcoxon para muestras independientes - Ejemplo
+
+Y más Excel:
+
+&lt;div class="img-container"&gt;
+  &lt;img src="img/mann-whitney_excel.png" width="900px" style="border: 1px black solid;"/&gt;
+&lt;/div&gt;
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Wilcoxon para rangos signados
+
+Es similar a la prueba de suma de rangos de Wilcoxon para una sola muestra, y se procede de la misma manera que esta. Lo único diferente es:
+
+1. En vez de contrastar dos grupos independientes, se contrastan dos grupos pareados **provenientes de la misma unidad muestral**.
+
+2. Se pone a prueba la hipótesis nula de que la mediana de las diferencias es cero:
+
+  `\(H_{0}:Med_{d}=0\)`
+  
+  `\(H_{a}:Med_{d} \neq 0\\H_{a}:Med_{d} \geq 0\\H_{a}:Med_{d} \leq 0\)`
+
+3. Se hace un *ranking* de las diferencias entre las muestras, no de las observaciones individuales.
+
+4. Se calcula la suma de los *rankings* tanto positivos (`\(R_{i}^{+}\)`) como negativos (`\(R_{i}^{-}\)`). El estadístico de prueba `\(T\)` será el mínimo entre ambos:
+
+  `\(T=min(R_{i}^{+},R_{i}^{-})\)`
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Wilcoxon para rangos signados - Ejemplo
+
+Para este ejemplo usaremos los datos de [Fuller (2003)](https://doi.org/10.1242/jeb.00230) sobre la variabilidad de la temperatura arterial y cerebral de avestruces:
+
+&lt;div class="img-container"&gt;
+  &lt;img src="img/fuller2003_table1.png" style="border: 1px black solid;"/&gt;
+&lt;/div&gt;
+
+En este caso, tenemos `\(n=6\)` avestruces, a cada una de las cuales se les midió la temperatura en la arteria carótida y en el cerebro, en un período de 24 horas.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Wilcoxon para rangos signados - Ejemplo
+
+Planteamos las hipótesis:
+
+`\(H_{0}:Med_{d}=0\\H_{a}:Med_{d} \neq 0\)`
+
+O alternativamente:
+
+`\(H_{0}:Med_{\text{Cerebro}}-Med_{\text{Carótida}}=0\\H_{a}:Med_{\text{Cerebro}}-Med_{\text{Carótida}} \neq 0\)`
+
+Calculamos las diferencias entre temperaturas:
+
+
+```
+## [1] 0.81 0.76 0.93 0.16 0.47 0.76
+```
+
+Ordenamos las diferencias de forma ascendente:
+
+
+```
+## [1] 0.16 0.47 0.76 0.76 0.81 0.93
+```
+
+Con esto, obtenemos el siguiente *ranking*:
+
+
+```
+## [1] 1.0 2.0 3.5 3.5 5.0 6.0
+```
+
+Como solo hay valores positivos, no hace falta hacer asignar signos a los *rankings*.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Wilcoxon para rangos signados - Ejemplo
+
+Para una aproximación normal, calculamos la suma de los *rankings* y de sus cuadrados:
+
+`\(\sum\limits_{i=1}^{6}R_{i}=1+2+3.5+3.5+5+6=21\\ \sum\limits_{i=1}^{6}R_{i}^{2}=1+4+12.25+12.25+25+36=90.5\)`
+
+Y luego calculamos el estadístico de prueba `\(T\)`:
+
+`\(T=\frac{\sum\limits_{i=1}^{6}R_{i}}{\sqrt{\sum\limits_{i=1}^{6}R_{i}^{2}}}=\frac{21}{\sqrt{90.5}}=2.2075\)`
+
+Lo comparamos contra un valor de `\(Z_{\text{crítico}}\)` de 1.96:
+
+`\(2.2075 \geq 1.96\)` ✅
+
+Por lo tanto, no tenemos suficiente evidencia para aceptar `\(H_{0}\)`, y concluimos diciendo hay una diferencia en la temperatura de la carótida y el cerebro de las avestruces luego de un período de 24 horas.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Wilcoxon para rangos signados - Ejemplo
+
+Pero ya que `\(n&lt;25\)`, buscamos la suma de los *rankings* positivos (`\(R_{i}^{+}\)`) y negativos (`\(R_{i}^{-}\)`):
+
+`\(\sum\limits_{i=1}^{6}R_{i}^{+}=21\\\sum\limits_{i=1}^{6}R_{i}^{-}=0\)`
+
+De esta manera, el estadístico de prueba `\(T\)` es:
+
+`\(T=min(R_{i}^{+},R_{i}^{-})=0\)`
+
+Buscamos el valor de `\(T_{\text{crítico}}\)` en la [tabla de Wilcoxon de rangos signados](https://real-statistics.com/statistics-tables/wilcoxon-signed-ranks-table/) para un valor de `\(\alpha=0.05\)` y `\(n=6\)`, el cual es:
+
+`\(T_{\text{crítico}}=0\)`
+
+Luego, contrastamos ambos valores:
+
+`\(0 \leq 0\)` ✅
+
+Por lo tanto, no tenemos suficiente evidencia para aceptar `\(H_{0}\)`, y concluimos lo mismo de antes.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
