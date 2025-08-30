@@ -1541,7 +1541,7 @@ class: justify, animate__animated, animate__fadeIn
 
 ## Prueba de Wilcoxon para rangos signados - Ejemplo
 
-Para este ejemplo usaremos los datos de [Fuller (2003)](https://doi.org/10.1242/jeb.00230) sobre la variabilidad de la temperatura arterial y cerebral de avestruces:
+Para este ejemplo usaremos los datos de [Fuller y col. (2003)](https://doi.org/10.1242/jeb.00230) sobre la variabilidad de la temperatura arterial y cerebral de avestruces:
 
 <div class="img-container">
   <img src="img/fuller2003_table1.png" style="border: 1px black solid;"/>
