@@ -1069,7 +1069,7 @@ $T=\sum\limits_{i=1}^{n}R_{i}^{+}$
 
 **9** Se busca el valor de $T_{\text{crítico}}$ en la [tabla de Wilcoxon de rangos signados](https://real-statistics.com/statistics-tables/wilcoxon-signed-ranks-table/), con el valor de $\alpha$ especificado (normalmente 0.05). Las hipótesis se contrastan como:
 
-$T \leq T_{\text{crítico; }\alpha} \text{ (DC)}\\T \leq T_{\text{crítico; }2 \alpha} \text{ (CD)}\\-T \geq -T_{\text{crítico; }2 \alpha} \text{ (CI)}$
+$T \leq T_{n;\:\alpha} \text{ (DC)}\\T \leq T_{n;\: 2\alpha} \text{ (CD)}\\-T \geq -T_{n;\: 2\alpha} \text{ (CI)}$
 
 **Nota**: Para las pruebas de una sola cola, se duplica el valor de $\alpha$ y se busca en la tabla correspondiente.
 ]
@@ -1223,9 +1223,7 @@ A manera de ejemplo, también podemos calcular $R_{i}^{+}$ y compararlo con el $
 
 $R_{i}^{+}=2.5+2.5+6.5+\dots+29=250.5$
 
-$T=min(R_{i}^{+},R_{i}^{-})=184.5$
-
-$T_{\text{crítico; }0.05}=126$
+$T_{29; \:0.05}=126$
 
 $250.5 \leq 126$ ❌
 
@@ -1299,11 +1297,11 @@ class: justify, animate__animated, animate__fadeIn
 .pull-left[
 **7** Si no hay empates, o son menos del 10%, se busca un valor $U_{\text{crítico}}$ en la [tabla de Mann-Whitney](https://real-statistics.com/statistics-tables/mann-whitney-table/) con el valor de $\alpha$ especificado (normalmente 0.05). Los valores se contrastan de la siguiente forma:
 
-$U \leq U_{\text{crítico};\:\alpha} \text{ (DC)}$
+$U \leq U_{n; \:\alpha} \text{ (DC)}$
 
 Si la prueba es de una sola cola, se duplica el valor de $\alpha$ y se busca el valor de $U_{\text{crítico}}$ en la tabla correspondiente:
 
-$U \leq U_{\text{crítico};\: 2 \alpha} \text{ (CD)}\\-U \geq -U_{\text{crítico};\: 2 \alpha} \text{ (CI)}$
+$U \leq U_{n; \: 2 \alpha} \text{ (CD)}\\-U \geq -U_{n; \: 2 \alpha} \text{ (CI)}$
 
 Si los valores de $n_{1}$ y $n_{2}$ son mayores a 20, el estadístico de prueba se cambia por $Z$, tal y como está descrito en el paso 6:
 
@@ -1341,7 +1339,7 @@ Usaremos las mismas 30 muestras de altura para individuos vegetales de Cerro El 
 
 ```{r}
 # Alturas CV
-alt.cv <- salida.campo.muestra
+alt.cv.sample <- salida.campo.muestra
 
 # Alturas JB
 alt.jb <- salida.campo %>%
