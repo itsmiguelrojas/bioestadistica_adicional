@@ -295,11 +295,11 @@ Tomamos datos aleatorios del peso total de los abulones (por ejemplo, 50 muestra
 
 
 ```
-##  [1] 0.0240 0.0320 0.1045 0.1160 0.1270 0.1440 0.2235 0.2625 0.3245 0.3400
-## [11] 0.4130 0.4250 0.4400 0.4475 0.4555 0.4585 0.4600 0.4675 0.4870 0.5410
-## [21] 0.5470 0.5550 0.5775 0.5780 0.5910 0.6015 0.6445 0.7750 0.7805 0.8050
-## [31] 0.8160 0.8285 0.8745 0.9045 0.9065 0.9810 1.0005 1.0105 1.0130 1.0270
-## [41] 1.1185 1.2780 1.2905 1.3005 1.3460 1.3485 1.6195 1.7860 1.8385 2.5500
+##  [1] 0.0240 0.0320 0.1045 0.1160 0.1270 0.1440 0.2235 0.2625 0.3245 0.3400 0.4130
+## [12] 0.4250 0.4400 0.4475 0.4555 0.4585 0.4600 0.4675 0.4870 0.5410 0.5470 0.5550
+## [23] 0.5775 0.5780 0.5910 0.6015 0.6445 0.7750 0.7805 0.8050 0.8160 0.8285 0.8745
+## [34] 0.9045 0.9065 0.9810 1.0005 1.0105 1.0130 1.0270 1.1185 1.2780 1.2905 1.3005
+## [45] 1.3460 1.3485 1.6195 1.7860 1.8385 2.5500
 ```
 
 Calculamos su promedio y desviación estándar:
@@ -319,32 +319,32 @@ De esta manera, obtenemos lo siguiente:
 
 
 ```
-##  [1] -1.417 -1.402 -1.260 -1.238 -1.217 -1.184 -1.029 -0.953 -0.832 -0.802
-## [11] -0.660 -0.636 -0.607 -0.592 -0.577 -0.571 -0.568 -0.554 -0.516 -0.410
-## [21] -0.399 -0.383 -0.339 -0.338 -0.313 -0.293 -0.209  0.045  0.056  0.104
-## [31]  0.125  0.150  0.239  0.298  0.301  0.447  0.485  0.504  0.509  0.536
-## [41]  0.714  1.025  1.049  1.069  1.157  1.162  1.690  2.014  2.117  3.502
+##  [1] -1.417 -1.402 -1.260 -1.238 -1.217 -1.184 -1.029 -0.953 -0.832 -0.802 -0.660
+## [12] -0.636 -0.607 -0.592 -0.577 -0.571 -0.568 -0.554 -0.516 -0.410 -0.399 -0.383
+## [23] -0.339 -0.338 -0.313 -0.293 -0.209  0.045  0.056  0.104  0.125  0.150  0.239
+## [34]  0.298  0.301  0.447  0.485  0.504  0.509  0.536  0.714  1.025  1.049  1.069
+## [45]  1.157  1.162  1.690  2.014  2.117  3.502
 ```
 
 Con estos valores de `\(Z\)`, se buscan los valores de `\(F(X)\)` en la tabla normal:
 
 
 ```
-##  [1] 0.0782 0.0805 0.1037 0.1078 0.1119 0.1183 0.1518 0.1704 0.2027 0.2113
-## [11] 0.2547 0.2623 0.2719 0.2768 0.2820 0.2840 0.2850 0.2900 0.3031 0.3408
-## [21] 0.3451 0.3508 0.3672 0.3676 0.3771 0.3849 0.4173 0.5181 0.5223 0.5413
-## [31] 0.5498 0.5594 0.5945 0.6170 0.6185 0.6724 0.6860 0.6929 0.6946 0.7041
-## [41] 0.7625 0.8473 0.8530 0.8574 0.8764 0.8774 0.9545 0.9780 0.9829 0.9998
+##  [1] 0.0782 0.0805 0.1037 0.1078 0.1119 0.1183 0.1518 0.1704 0.2027 0.2113 0.2547
+## [12] 0.2623 0.2719 0.2768 0.2820 0.2840 0.2850 0.2900 0.3031 0.3408 0.3451 0.3508
+## [23] 0.3672 0.3676 0.3771 0.3849 0.4173 0.5181 0.5223 0.5413 0.5498 0.5594 0.5945
+## [34] 0.6170 0.6185 0.6724 0.6860 0.6929 0.6946 0.7041 0.7625 0.8473 0.8530 0.8574
+## [45] 0.8764 0.8774 0.9545 0.9780 0.9829 0.9998
 ```
 
 Buscamos también los valores de `\(S_{n}\)`:
 
 
 ```
-##  [1] 0.02 0.04 0.06 0.08 0.10 0.12 0.14 0.16 0.18 0.20 0.22 0.24 0.26 0.28 0.30
-## [16] 0.32 0.34 0.36 0.38 0.40 0.42 0.44 0.46 0.48 0.50 0.52 0.54 0.56 0.58 0.60
-## [31] 0.62 0.64 0.66 0.68 0.70 0.72 0.74 0.76 0.78 0.80 0.82 0.84 0.86 0.88 0.90
-## [46] 0.92 0.94 0.96 0.98 1.00
+##  [1] 0.02 0.04 0.06 0.08 0.10 0.12 0.14 0.16 0.18 0.20 0.22 0.24 0.26 0.28 0.30 0.32
+## [17] 0.34 0.36 0.38 0.40 0.42 0.44 0.46 0.48 0.50 0.52 0.54 0.56 0.58 0.60 0.62 0.64
+## [33] 0.66 0.68 0.70 0.72 0.74 0.76 0.78 0.80 0.82 0.84 0.86 0.88 0.90 0.92 0.94 0.96
+## [49] 0.98 1.00
 ```
 
 ---
@@ -356,11 +356,11 @@ Ahora, se calcula cada valor de `\(|F(X)-S_{n}(X)|\)`:
 
 
 ```
-##  [1] 0.0582 0.0405 0.0437 0.0278 0.0119 0.0017 0.0118 0.0104 0.0227 0.0113
-## [11] 0.0347 0.0223 0.0119 0.0032 0.0180 0.0360 0.0550 0.0700 0.0769 0.0592
-## [21] 0.0749 0.0892 0.0928 0.1124 0.1229 0.1351 0.1227 0.0419 0.0577 0.0587
-## [31] 0.0702 0.0806 0.0655 0.0630 0.0815 0.0476 0.0540 0.0671 0.0854 0.0959
-## [41] 0.0575 0.0073 0.0070 0.0226 0.0236 0.0426 0.0145 0.0180 0.0029 0.0002
+##  [1] 0.0582 0.0405 0.0437 0.0278 0.0119 0.0017 0.0118 0.0104 0.0227 0.0113 0.0347
+## [12] 0.0223 0.0119 0.0032 0.0180 0.0360 0.0550 0.0700 0.0769 0.0592 0.0749 0.0892
+## [23] 0.0928 0.1124 0.1229 0.1351 0.1227 0.0419 0.0577 0.0587 0.0702 0.0806 0.0655
+## [34] 0.0630 0.0815 0.0476 0.0540 0.0671 0.0854 0.0959 0.0575 0.0073 0.0070 0.0226
+## [45] 0.0236 0.0426 0.0145 0.0180 0.0029 0.0002
 ```
 
 De aquí, se elige el mayor valor de todos, el cual es:
@@ -444,11 +444,11 @@ Tomemos los mismos datos de antes (peso total de abulones), ordenados de forma a
 
 
 ```
-##  [1] 0.0240 0.0320 0.1045 0.1160 0.1270 0.1440 0.2235 0.2625 0.3245 0.3400
-## [11] 0.4130 0.4250 0.4400 0.4475 0.4555 0.4585 0.4600 0.4675 0.4870 0.5410
-## [21] 0.5470 0.5550 0.5775 0.5780 0.5910 0.6015 0.6445 0.7750 0.7805 0.8050
-## [31] 0.8160 0.8285 0.8745 0.9045 0.9065 0.9810 1.0005 1.0105 1.0130 1.0270
-## [41] 1.1185 1.2780 1.2905 1.3005 1.3460 1.3485 1.6195 1.7860 1.8385 2.5500
+##  [1] 0.0240 0.0320 0.1045 0.1160 0.1270 0.1440 0.2235 0.2625 0.3245 0.3400 0.4130
+## [12] 0.4250 0.4400 0.4475 0.4555 0.4585 0.4600 0.4675 0.4870 0.5410 0.5470 0.5550
+## [23] 0.5775 0.5780 0.5910 0.6015 0.6445 0.7750 0.7805 0.8050 0.8160 0.8285 0.8745
+## [34] 0.9045 0.9065 0.9810 1.0005 1.0105 1.0130 1.0270 1.1185 1.2780 1.2905 1.3005
+## [45] 1.3460 1.3485 1.6195 1.7860 1.8385 2.5500
 ```
 
 Ya conocemos su promedio y desviación estándar:
@@ -859,7 +859,7 @@ Se utiliza para comparar las diferencias entre medias e interpretar cuáles de e
 .pull-left[
 **1** Se plantean las hipótesis:
 
-`\(H_{0}:\text{Las medias de ambos grupos son iguales.}\\H_{a}:\text{Las medias de ambos grupos difieren.}\)`
+`\(H_{0}:\text{Las medias de ambos grupos son similares.}\\H_{a}:\text{Las medias de ambos grupos difieren.}\)`
 
 **2** Se determina cuántas comparaciones de pares de medias han de hacerse mediante la fórmula de la combinatoria:
 
@@ -1112,9 +1112,9 @@ Seleccionamos 30 muestras aleatorias de altura (en metros) de individuos de Cerr
 
 
 ```
-##  [1]  5.00  2.00  7.00 12.00 12.00  3.00  3.00 10.50 15.00  4.50  6.00  6.75
-## [13] 13.50  2.20  8.25  3.00  9.00  7.50  4.50  4.50  9.75  7.50 11.25 16.00
-## [25] 13.00  4.50  8.25  6.00 10.00  3.00
+##  [1]  5.00  2.00  7.00 12.00 12.00  3.00  3.00 10.50 15.00  4.50  6.00  6.75 13.50
+## [14]  2.20  8.25  3.00  9.00  7.50  4.50  4.50  9.75  7.50 11.25 16.00 13.00  4.50
+## [27]  8.25  6.00 10.00  3.00
 ```
 
 Cuya mediana en este caso es 7.25 m.
@@ -1137,25 +1137,25 @@ Restamos la mediana propuesta de cada valor de altura:
 
 
 ```
-##  [1] -2.00 -5.00  0.00  5.00  5.00 -4.00 -4.00  3.50  8.00 -2.50 -1.00 -0.25
-## [13]  6.50 -4.80  1.25 -4.00  2.00  0.50 -2.50 -2.50  2.75  0.50  4.25  9.00
-## [25]  6.00 -2.50  1.25 -1.00  3.00 -4.00
+##  [1] -2.00 -5.00  0.00  5.00  5.00 -4.00 -4.00  3.50  8.00 -2.50 -1.00 -0.25  6.50
+## [14] -4.80  1.25 -4.00  2.00  0.50 -2.50 -2.50  2.75  0.50  4.25  9.00  6.00 -2.50
+## [27]  1.25 -1.00  3.00 -4.00
 ```
 
 Sacamos su valor absoluto y ordenamos de forma ascendente el valor absoluto de las diferencias (como hay una diferencia igual a 0, la eliminamos):
 
 
 ```
-##  [1] 0.25 0.50 0.50 1.00 1.00 1.25 1.25 2.00 2.00 2.50 2.50 2.50 2.50 2.75 3.00
-## [16] 3.50 4.00 4.00 4.00 4.00 4.25 4.80 5.00 5.00 5.00 6.00 6.50 8.00 9.00
+##  [1] 0.25 0.50 0.50 1.00 1.00 1.25 1.25 2.00 2.00 2.50 2.50 2.50 2.50 2.75 3.00 3.50
+## [17] 4.00 4.00 4.00 4.00 4.25 4.80 5.00 5.00 5.00 6.00 6.50 8.00 9.00
 ```
 
 Clasificamos los datos (*ranking*):
 
 
 ```
-##  [1]  1.0  2.5  2.5  4.5  4.5  6.5  6.5  8.5  8.5 11.5 11.5 11.5 11.5 14.0 15.0
-## [16] 16.0 18.5 18.5 18.5 18.5 21.0 22.0 24.0 24.0 24.0 26.0 27.0 28.0 29.0
+##  [1]  1.0  2.5  2.5  4.5  4.5  6.5  6.5  8.5  8.5 11.5 11.5 11.5 11.5 14.0 15.0 16.0
+## [17] 18.5 18.5 18.5 18.5 21.0 22.0 24.0 24.0 24.0 26.0 27.0 28.0 29.0
 ```
 
 ---
@@ -1167,9 +1167,9 @@ Reasignamos a cada valor del *ranking* su signo correspondiente:
 
 
 ```
-##  [1]  -1.0   2.5   2.5  -4.5  -4.5   6.5   6.5  -8.5   8.5 -11.5 -11.5 -11.5
-## [13] -11.5  14.0  15.0  16.0 -18.5 -18.5 -18.5 -18.5  21.0 -22.0 -24.0  24.0
-## [25]  24.0  26.0  27.0  28.0  29.0
+##  [1]  -1.0   2.5   2.5  -4.5  -4.5   6.5   6.5  -8.5   8.5 -11.5 -11.5 -11.5 -11.5
+## [14]  14.0  15.0  16.0 -18.5 -18.5 -18.5 -18.5  21.0 -22.0 -24.0  24.0  24.0  26.0
+## [27]  27.0  28.0  29.0
 ```
 
 Se calcula la suma de los *rankings* y la suma de los cuadrados de los *rankings*:
@@ -1332,18 +1332,18 @@ Usaremos las mismas 30 muestras de altura para individuos vegetales de Cerro El 
 
 
 ```
-##  [1]  5.00  2.00  7.00 12.00 12.00  3.00  3.00 10.50 15.00  4.50  6.00  6.75
-## [13] 13.50  2.20  8.25  3.00  9.00  7.50  4.50  4.50  9.75  7.50 11.25 16.00
-## [25] 13.00  4.50  8.25  6.00 10.00  3.00
+##  [1]  5.00  2.00  7.00 12.00 12.00  3.00  3.00 10.50 15.00  4.50  6.00  6.75 13.50
+## [14]  2.20  8.25  3.00  9.00  7.50  4.50  4.50  9.75  7.50 11.25 16.00 13.00  4.50
+## [27]  8.25  6.00 10.00  3.00
 ```
 
 **Jardín Botánico de Caracas (JB)**:
 
 
 ```
-##  [1]  4.000  2.500  2.200  2.250  2.000  2.600  2.250  2.550  3.000  0.750
-## [11]  3.300 13.000  0.750  2.500  5.250  6.000  1.800 11.000  1.875  7.000
-## [21]  4.000 14.000  3.000  2.000 11.250  9.000  3.000  1.800  2.250  7.000
+##  [1]  4.000  2.500  2.200  2.250  2.000  2.600  2.250  2.550  3.000  0.750  3.300
+## [12] 13.000  0.750  2.500  5.250  6.000  1.800 11.000  1.875  7.000  4.000 14.000
+## [23]  3.000  2.000 11.250  9.000  3.000  1.800  2.250  7.000
 ```
 
 Cuyas medianas son respectivamente 7.25 m (CV) y 2.80 m (JB).
@@ -1357,18 +1357,16 @@ Unimos los datos de ambas muestras y los ordenamos de forma ascendente, mantenie
 
 
 ```
-##     JB     JB     JB     JB     JB     CV     JB     JB     CV     JB     JB 
-##  0.750  0.750  1.800  1.800  1.875  2.000  2.000  2.000  2.200  2.200  2.250 
-##     JB     JB     JB     JB     JB     JB     CV     CV     CV     CV     JB 
-##  2.250  2.250  2.500  2.500  2.550  2.600  3.000  3.000  3.000  3.000  3.000 
-##     JB     JB     JB     JB     JB     CV     CV     CV     CV     CV     JB 
-##  3.000  3.000  3.300  4.000  4.000  4.500  4.500  4.500  4.500  5.000  5.250 
-##     CV     CV     JB     CV     CV     JB     JB     CV     CV     CV     CV 
-##  6.000  6.000  6.000  6.750  7.000  7.000  7.000  7.500  7.500  8.250  8.250 
-##     CV     JB     CV     CV     CV     JB     CV     JB     CV     CV     CV 
-##  9.000  9.000  9.750 10.000 10.500 11.000 11.250 11.250 12.000 12.000 13.000 
-##     JB     CV     JB     CV     CV 
-## 13.000 13.500 14.000 15.000 16.000
+##     JB     JB     JB     JB     JB     CV     JB     JB     CV     JB     JB     JB 
+##  0.750  0.750  1.800  1.800  1.875  2.000  2.000  2.000  2.200  2.200  2.250  2.250 
+##     JB     JB     JB     JB     JB     CV     CV     CV     CV     JB     JB     JB 
+##  2.250  2.500  2.500  2.550  2.600  3.000  3.000  3.000  3.000  3.000  3.000  3.000 
+##     JB     JB     JB     CV     CV     CV     CV     CV     JB     CV     CV     JB 
+##  3.300  4.000  4.000  4.500  4.500  4.500  4.500  5.000  5.250  6.000  6.000  6.000 
+##     CV     CV     JB     JB     CV     CV     CV     CV     CV     JB     CV     CV 
+##  6.750  7.000  7.000  7.000  7.500  7.500  8.250  8.250  9.000  9.000  9.750 10.000 
+##     CV     JB     CV     JB     CV     CV     CV     JB     CV     JB     CV     CV 
+## 10.500 11.000 11.250 11.250 12.000 12.000 13.000 13.000 13.500 14.000 15.000 16.000
 ```
 
 ---
@@ -1394,16 +1392,16 @@ De esta forma, se crea el siguiente *ranking*:
 
 
 ```
-##  [1]  7.0  9.5 21.0 21.0 21.0 21.0 29.5 29.5 29.5 29.5 32.0 35.0 35.0 37.0 39.0
-## [16] 41.5 41.5 43.5 43.5 45.5 47.0 48.0 49.0 51.5 53.5 53.5 55.5 57.0 59.0 60.0
+##  [1]  7.0  9.5 21.0 21.0 21.0 21.0 29.5 29.5 29.5 29.5 32.0 35.0 35.0 37.0 39.0 41.5
+## [17] 41.5 43.5 43.5 45.5 47.0 48.0 49.0 51.5 53.5 53.5 55.5 57.0 59.0 60.0
 ```
 
 **Jardín Botánico de Caracas (JB)**:
 
 
 ```
-##  [1]  1.5  1.5  3.5  3.5  5.0  7.0  7.0  9.5 12.0 12.0 12.0 14.5 14.5 16.0 17.0
-## [16] 21.0 21.0 21.0 25.0 26.5 26.5 33.0 35.0 39.0 39.0 45.5 50.0 51.5 55.5 58.0
+##  [1]  1.5  1.5  3.5  3.5  5.0  7.0  7.0  9.5 12.0 12.0 12.0 14.5 14.5 16.0 17.0 21.0
+## [17] 21.0 21.0 25.0 26.5 26.5 33.0 35.0 39.0 39.0 45.5 50.0 51.5 55.5 58.0
 ```
 
 ---
@@ -1640,6 +1638,266 @@ Y en Excel:
 class: justify, animate__animated, animate__fadeIn
 
 ## Prueba de Kruskal-Wallis
+
+.pull-left[
+**1** Se plantean las hipótesis:
+
+***H0: Las medianas de todos los grupos son similares.***
+
+***Ha: Al menos uno de los grupos posee una mediana distinta de las otras.***
+
+**2** Se unen todos los datos y se ordenan de forma ascendente, identificando a qué grupo pertenecen.
+
+**3** Se hace un *ranking* de los datos. Si hay empates (valores repetidos), se calcula la posición promedio.
+
+**4** Se calcula la suma de los *rankings* correspondientes a cada grupo (`\(R_{j}\)`).
+
+**5** Se calcula el estadístico de prueba `\(H\)`:
+
+`\(H=\left[\frac{12}{n(n+1)}\sum\limits_{j=1}^{k}\frac{R_{j}^{2}}{n_{j}}\right]-3(n+1)\)`
+
+donde `\(k\)` es el número de grupos, `\(n_{j}\)` es el tamaño del grupo `\(j\)` y `\(n\)` es el número de observaciones totales.
+]
+
+.pull-right[
+Si el número de muestras es pequeño o hay muchos empates, se utiliza el estadístico `\(H'\)`:
+
+`\(H'=\frac{H}{1-\frac{1}{n^{3}-n}\sum\limits_{i=1}^{k}\left(f_{i}^{3}-f_{i}\right)}\)`
+
+siendo `\(k\)`, en este caso, el número de grupos con empates, y `\(f\)` el número de empates del grupo `\(i\)`.
+
+**6** Se contrasta el valor de `\(H\)` (o `\(H'\)`) contra un valor crítico de `\(\chi^{2}\)` con `\(k-1\)` grados de libertad y el valor de `\(\alpha\)` correspondiente (por lo general 0.05):
+
+`\(H \geq \chi_{\alpha;\: k-1}^{2}\)`
+
+Si se cumple, hay al menos una diferencia en mediana en uno de los grupos respecto al resto. Si es ese el caso, se procede con una prueba *post hoc* de Dunn.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba *post hoc* de Dunn
+
+.pull-left[
+**1** Se plantean las hipótesis:
+
+***H0: Las medianas de ambos grupos son similares.***
+
+***Ha: Las medianas de ambos grupos difieren.***
+
+**2** Se calculan los promedios de los *rankings* de cada grupo:
+
+`\(\bar{R}_{j}=\frac{R_{j}}{n_{j}}\)`
+
+**3** Se calcula el error estándar entre cada par de grupos a comparar:
+
+`\(SE=\sqrt{\frac{n(n+1)}{12}\left(\frac{1}{n_{i}}+\frac{1}{n_{j}}\right)}\)`
+
+Si hay muchos empates, se utiliza la forma corregida del error estándar:
+
+`\(SE=\sqrt{\left(\frac{n(n+1)}{12}-\frac{\sum\left(f^{3}-f\right)}{12(n-1)}\right)\left(\frac{1}{n_{i}}+\frac{1}{n_{j}}\right)}\)`
+]
+
+.pull-right[
+donde `\(f\)` es el número de empates.
+
+**4** Se calcula el estadístico `\(Z\)`:
+
+`\(Z=\frac{|\bar{R}_{i}-\bar{R}_{j}|}{SE}\)`
+
+**5** Los valores de `\(Z\)` se contrastan contra un `\(Z_{\text{crítico}}\)` de `\(\alpha/2\)`:
+
+`\(Z \geq Z_{\frac{\alpha}{2}}\)`
+
+Si se cumple, no hay suficiente evidencia para aceptar `\(H_{0}\)`, y se dice que el par de grupos que se están comparando poseen medianas distintas.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+Usaremos los datos del peso total de abulones separados por sexo, utilizados en el ANOVA.
+
+![](bioestadistica_adicional_files/figure-html/distribucion_6-1.png)&lt;!-- --&gt;
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+.pull-left[
+Se tienen 15 observaciones por grupo:
+
+
+```
+##     Macho Hembra Infante
+## 1  0.9440 1.7730  0.3535
+## 2  1.2700 0.2070  0.1920
+## 3  0.6565 1.6840  0.2260
+## 4  1.3745 1.0770  0.2005
+## 5  0.6295 1.4355  0.5130
+## 6  0.9325 1.5660  0.2770
+## 7  2.0885 0.9775  0.1375
+## 8  1.4275 0.8435  0.5910
+## 9  2.1400 2.1030  0.7045
+## 10 0.7720 0.3840  0.3200
+## 11 0.1700 1.0905  0.2710
+## 12 0.5230 0.7760  0.8025
+## 13 0.5150 0.5755  0.3060
+## 14 1.0270 1.7190  0.2050
+## 15 1.0240 1.0325  0.2085
+```
+]
+
+.pull-right[
+De los cuales se obtienen los siguientes *rankings*:
+
+
+```
+##    Macho Hembra Infante
+## 1      2      6       1
+## 2     16     14       3
+## 3     17     18       4
+## 4     20     24       5
+## 5     21     26       7
+## 6     23     29       8
+## 7     27     32       9
+## 8     28     33      10
+## 9     30     34      11
+## 10    31     38      12
+## 11    35     39      13
+## 12    36     40      15
+## 13    37     41      19
+## 14    43     42      22
+## 15    45     44      25
+```
+
+Ahora, calculamos la suma y el promedio de los *rankings* para cada grupo:
+
+
+```
+##       sex suma_R promedio_R
+## 1   Macho    411   27.40000
+## 2  Hembra    460   30.66667
+## 3 Infante    164   10.93333
+```
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+Se calcula el estadístico de prueba `\(H\)`:
+
+`\(H=\left[\left(\frac{12}{45(45+1)}\right)\left(\frac{411^{2}}{15}+\frac{460^{2}}{15}+\frac{164^{2}}{15}\right)\right]-3(45+1)=19.456\)`
+
+Este valor se compara contra un `\(\chi^{2}_{\text{crítico}}\)` con 2 grados de libertad y un `\(\alpha=0.05\)`, cuyo valor es 5.991:
+
+`\(19.456 \geq 5.991\)` ✅
+
+Por lo tanto, no hay suficiente evidencia para aceptar `\(H_{0}\)`. Se concluye diciendo que la mediana de al menos uno de los grupos difiere.
+
+Ahora hay que hacer una prueba *post hoc* de Dunn...
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+#### Prueba *post hoc* de Dunn
+
+.pull-left[
+Se calculan las diferencias entre cada par de promedios:
+
+`\(\text{Hembra - Macho: } 3.2667\\ \text{Infante - Macho: } -16.4667\\ \text{Infante - Hembra: } -19.7333\)`
+
+Se calcula el error estándar, el cual es el mismo para todos:
+
+`\(SE=\sqrt{\frac{45(45+1)}{12}\left(\frac{1}{15}+\frac{1}{15}\right)}=4.7958\)`
+
+Ahora, se calcula el estadístico de prueba `\(Z\)` para cada comparación:
+
+`\(\text{Hembra - Macho: } 0.6811\\ \text{Infante - Macho: } 3.4335\\ \text{Infante - Hembra: } 4.1147\)`
+]
+
+.pull-right[
+Todos estos valores se comparan contra un `\(Z_{\text{crítico}}\)` con un `\(\alpha=0.05\)`, el cual es 1.96:
+
+`\(\text{Hembra - Macho: } 0.6811 \geq 1.96\)` ❌
+
+`\(\text{Infante - Macho: } 3.4335 \geq 1.96\)` ✅
+
+`\(\text{Infante - Hembra: } 4.1147 \geq 1.96\)` ✅
+
+Por lo tanto, la diferencia en medianas está entre **Infante - Macho** e **Infante - Hembra**.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+También podemos hacer la prueba en R:
+
+
+```
+##   Kruskal-Wallis rank sum test
+## 
+## data: x and group
+## Kruskal-Wallis chi-squared = 19.4558, df = 2, p-value = 0
+## 
+## 
+##                            Comparison of x by group                            
+##                                 (No adjustment)                                
+## Col Mean-|
+## Row Mean |     Hembra    Infante
+## ---------+----------------------
+##  Infante |   4.114684
+##          |    0.0000*
+##          |
+##    Macho |   0.681147  -3.433537
+##          |     0.4958    0.0006*
+## 
+## alpha = 0.05
+## Reject Ho if p &lt;= alpha
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+En Excel también:
+
+&lt;div class="img-container"&gt;
+  &lt;img src="img/kw_excel.png" style="border: 1px black solid;"/&gt;
+&lt;/div&gt;
+&lt;br/&gt;
+&lt;div class="img-container"&gt;
+  &lt;img src="img/dunn_excel.png" style="border: 1px black solid;"/&gt;
+&lt;/div&gt;
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Supuestos clave para pruebas no paramétricas
+
+&lt;br/&gt;
+
+|Prueba de suma de rangos de Wilcoxon de una sola muestra|Prueba de Mann-Whitney-Wilcoxon para muestras independientes|Prueba de Wilcoxon para rangos signados|Prueba de Kruskal-Wallis|
+|:---|:---|:---|:---|
+|1. La variable de interés es continua. &lt;br&gt;&lt;br&gt; 2. Los datos son una muestra aleatoria de una población.|1. Las muestras son independientes y seleccionadas al azar. &lt;br&gt;&lt;br&gt; 2. La variable dependiente es ordinal o continua. &lt;br&gt;&lt;br&gt; 3. Las distribuciones de las poblaciones de las que provienen las muestras tienen la misma forma (aunque no necesariamente la misma media o mediana).|1. Los datos consisten en pares de observaciones de una muestra aleatoria. &lt;br&gt;&lt;br&gt; 2. La variable de interés es continua.|1. Se tienen dos o más muestras independientes seleccionadas al azar. &lt;br&gt;&lt;br&gt; 2. La variable dependiente es ordinal o continua. &lt;br&gt;&lt;br&gt; 3. Las distribuciones de las poblaciones de las que provienen las muestras tienen formas similares.|
+
+---
+class: middle, inverse, center, animate__animated, animate__fadeIn
+background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
+background-size: cover
+
+.pull-left[
+### Regresión lineal
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

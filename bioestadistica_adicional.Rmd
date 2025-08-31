@@ -24,6 +24,7 @@ library(kableExtra)
 library(xaringanExtra)
 library(readxl)
 library(coin)
+library(dunn.test)
 
 opts_chunk$set(echo=FALSE,
                warning=FALSE,
@@ -905,7 +906,7 @@ Se utiliza para comparar las diferencias entre medias e interpretar cuáles de e
 .pull-left[
 **1** Se plantean las hipótesis:
 
-$H_{0}:\text{Las medias de ambos grupos son iguales.}\\H_{a}:\text{Las medias de ambos grupos difieren.}$
+$H_{0}:\text{Las medias de ambos grupos son similares.}\\H_{a}:\text{Las medias de ambos grupos difieren.}$
 
 **2** Se determina cuántas comparaciones de pares de medias han de hacerse mediante la fórmula de la combinatoria:
 
@@ -1685,3 +1686,249 @@ Y en Excel:
 class: justify, animate__animated, animate__fadeIn
 
 ## Prueba de Kruskal-Wallis
+
+.pull-left[
+**1** Se plantean las hipótesis:
+
+***H0: Las medianas de todos los grupos son similares.***
+
+***Ha: Al menos uno de los grupos posee una mediana distinta de las otras.***
+
+**2** Se unen todos los datos y se ordenan de forma ascendente, identificando a qué grupo pertenecen.
+
+**3** Se hace un *ranking* de los datos. Si hay empates (valores repetidos), se calcula la posición promedio.
+
+**4** Se calcula la suma de los *rankings* correspondientes a cada grupo ($R_{j}$).
+
+**5** Se calcula el estadístico de prueba $H$:
+
+$H=\left[\frac{12}{n(n+1)}\sum\limits_{j=1}^{k}\frac{R_{j}^{2}}{n_{j}}\right]-3(n+1)$
+
+donde $k$ es el número de grupos, $n_{j}$ es el tamaño del grupo $j$ y $n$ es el número de observaciones totales.
+]
+
+.pull-right[
+Si el número de muestras es pequeño o hay muchos empates, se utiliza el estadístico $H'$:
+
+$H'=\frac{H}{1-\frac{1}{n^{3}-n}\sum\limits_{i=1}^{k}\left(f_{i}^{3}-f_{i}\right)}$
+
+siendo $k$, en este caso, el número de grupos con empates, y $f$ el número de empates del grupo $i$.
+
+**6** Se contrasta el valor de $H$ (o $H'$) contra un valor crítico de $\chi^{2}$ con $k-1$ grados de libertad y el valor de $\alpha$ correspondiente (por lo general 0.05):
+
+$H \geq \chi_{\alpha;\: k-1}^{2}$
+
+Si se cumple, hay al menos una diferencia en mediana en uno de los grupos respecto al resto. Si es ese el caso, se procede con una prueba *post hoc* de Dunn.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba *post hoc* de Dunn
+
+.pull-left[
+**1** Se plantean las hipótesis:
+
+***H0: Las medianas de ambos grupos son similares.***
+
+***Ha: Las medianas de ambos grupos difieren.***
+
+**2** Se calculan los promedios de los *rankings* de cada grupo:
+
+$\bar{R}_{j}=\frac{R_{j}}{n_{j}}$
+
+**3** Se calcula el error estándar entre cada par de grupos a comparar:
+
+$SE=\sqrt{\frac{n(n+1)}{12}\left(\frac{1}{n_{i}}+\frac{1}{n_{j}}\right)}$
+
+Si hay muchos empates, se utiliza la forma corregida del error estándar:
+
+$SE=\sqrt{\left(\frac{n(n+1)}{12}-\frac{\sum\left(f^{3}-f\right)}{12(n-1)}\right)\left(\frac{1}{n_{i}}+\frac{1}{n_{j}}\right)}$
+]
+
+.pull-right[
+donde $f$ es el número de empates.
+
+**4** Se calcula el estadístico $Z$:
+
+$Z=\frac{|\bar{R}_{i}-\bar{R}_{j}|}{SE}$
+
+**5** Los valores de $Z$ se contrastan contra un $Z_{\text{crítico}}$ de $\alpha/2$:
+
+$Z \geq Z_{\frac{\alpha}{2}}$
+
+Si se cumple, no hay suficiente evidencia para aceptar $H_{0}$, y se dice que el par de grupos que se están comparando poseen medianas distintas.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+Usaremos los datos del peso total de abulones separados por sexo, utilizados en el ANOVA.
+
+```{r distribucion_6, fig.height=3.5}
+ abalone.sex %>%
+  ggplot(aes(x = sex, y = whole_weight, fill = sex)) +
+  geom_violin(alpha = 0.5) +
+  stat_boxplot(geom = 'errorbar', width = 0.2, linewidth = 1) +
+  geom_boxplot(width = 0.1) +
+  labs(
+    x = '',
+    y = 'Peso total (g)',
+    title = 'Distribución de peso total de abulones',
+    subtitle = 'Dividido por sexo',
+    caption = 'Fuente: Nash, W., Sellers, T., Talbot, S., Cawthorn, A. y Ford, W. (1994).\nAbalone [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C55C7W.'
+  ) +
+  scale_fill_manual(values = c('aquamarine','salmon','#EEB840')) +
+  theme_minimal() +
+  theme(legend.position = 'none')
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+.pull-left[
+Se tienen 15 observaciones por grupo:
+
+```{r}
+abalone.sex %>%
+  select(sex, whole_weight) %>%
+  group_by(sex) %>%
+  mutate(row = row_number()) %>%
+  pivot_wider(names_from = sex, values_from = whole_weight) %>%
+  select(-row) %>%
+  as.data.frame()
+```
+]
+
+.pull-right[
+De los cuales se obtienen los siguientes *rankings*:
+
+```{r}
+abalone.sex %>%
+  select(sex, whole_weight) %>%
+  arrange(whole_weight) %>%
+  mutate(ranking = 1:nrow(.)) %>%
+  select(-whole_weight) %>%
+  group_by(sex) %>%
+  mutate(row = row_number()) %>%
+  pivot_wider(names_from = sex, values_from = ranking) %>%
+  select(-row) %>%
+  relocate(Infante, .after = Hembra) %>%
+  as.data.frame()
+```
+
+Ahora, calculamos la suma y el promedio de los *rankings* para cada grupo:
+
+```{r}
+abalone.sex %>%
+  select(sex, whole_weight) %>%
+  arrange(whole_weight) %>%
+  mutate(ranking = 1:nrow(.)) %>%
+  group_by(sex) %>%
+  summarise(
+    suma_R = sum(ranking),
+    promedio_R = mean(ranking)
+  ) %>%
+  as.data.frame()
+```
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+Se calcula el estadístico de prueba $H$:
+
+$H=\left[\left(\frac{12}{45(45+1)}\right)\left(\frac{411^{2}}{15}+\frac{460^{2}}{15}+\frac{164^{2}}{15}\right)\right]-3(45+1)=19.456$
+
+Este valor se compara contra un $\chi^{2}_{\text{crítico}}$ con 2 grados de libertad y un $\alpha=0.05$, cuyo valor es 5.991:
+
+$19.456 \geq 5.991$ ✅
+
+Por lo tanto, no hay suficiente evidencia para aceptar $H_{0}$. Se concluye diciendo que la mediana de al menos uno de los grupos difiere.
+
+Ahora hay que hacer una prueba *post hoc* de Dunn...
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+#### Prueba *post hoc* de Dunn
+
+.pull-left[
+Se calculan las diferencias entre cada par de promedios:
+
+$\text{Hembra - Macho: } 3.2667\\ \text{Infante - Macho: } -16.4667\\ \text{Infante - Hembra: } -19.7333$
+
+Se calcula el error estándar, el cual es el mismo para todos:
+
+$SE=\sqrt{\frac{45(45+1)}{12}\left(\frac{1}{15}+\frac{1}{15}\right)}=4.7958$
+
+Ahora, se calcula el estadístico de prueba $Z$ para cada comparación:
+
+$\text{Hembra - Macho: } 0.6811\\ \text{Infante - Macho: } 3.4335\\ \text{Infante - Hembra: } 4.1147$
+]
+
+.pull-right[
+Todos estos valores se comparan contra un $Z_{\text{crítico}}$ con un $\alpha=0.05$, el cual es 1.96:
+
+$\text{Hembra - Macho: } 0.6811 \geq 1.96$ ❌
+
+$\text{Infante - Macho: } 3.4335 \geq 1.96$ ✅
+
+$\text{Infante - Hembra: } 4.1147 \geq 1.96$ ✅
+
+Por lo tanto, la diferencia en medianas está entre **Infante - Macho** e **Infante - Hembra**.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+También podemos hacer la prueba en R:
+
+```{r}
+dunn.test(x = abalone.sex$whole_weight, g = abalone.sex$sex, altp = T)
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis - Ejemplo
+
+En Excel también:
+
+<div class="img-container">
+  <img src="img/kw_excel.png" style="border: 1px black solid;"/>
+</div>
+<br/>
+<div class="img-container">
+  <img src="img/dunn_excel.png" style="border: 1px black solid;"/>
+</div>
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Supuestos clave para pruebas no paramétricas
+
+<br/>
+
+|Prueba de suma de rangos de Wilcoxon de una sola muestra|Prueba de Mann-Whitney-Wilcoxon para muestras independientes|Prueba de Wilcoxon para rangos signados|Prueba de Kruskal-Wallis|
+|:---|:---|:---|:---|
+|1. La variable de interés es continua. <br><br> 2. Los datos son una muestra aleatoria de una población.|1. Las muestras son independientes y seleccionadas al azar. <br><br> 2. La variable dependiente es ordinal o continua. <br><br> 3. Las distribuciones de las poblaciones de las que provienen las muestras tienen la misma forma (aunque no necesariamente la misma media o mediana).|1. Los datos consisten en pares de observaciones de una muestra aleatoria. <br><br> 2. La variable de interés es continua.|1. Se tienen dos o más muestras independientes seleccionadas al azar. <br><br> 2. La variable dependiente es ordinal o continua. <br><br> 3. Las distribuciones de las poblaciones de las que provienen las muestras tienen formas similares.|
+
+---
+class: middle, inverse, center, animate__animated, animate__fadeIn
+background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
+background-size: cover
+
+.pull-left[
+### Regresión lineal
+]
