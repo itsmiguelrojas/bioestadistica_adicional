@@ -112,7 +112,7 @@ class: justify, middle, animate__animated, animate__fadeIn
 
 - Realizar un análisis de varianza para comparar las medias de tres o más grupos y hacer una prueba *post hoc* para identificar cuáles son las diferencias entre los grupos.
 
-- Poner a prueba las hipótesis cuando los datos no cumplen los supuestos de normalidad.
+- Poner a prueba las hipótesis cuando los datos no cumplen los supuestos de las pruebas paramétricas.
 
 - Comprender los conceptos básicos de la regresión lineal, aprender a ajustar un modelo de regresión y a interpretar los resultados, incluyendo los coeficientes y el $R^2$.
 
@@ -157,6 +157,36 @@ Al momento de realizar un experimento o un estudio observacional, es importante 
 
 .pull-right[
 Proliferación de tipos celulares en el útero de ratón durante el ciclo estral. Estos fueron marcados con anti-PCNA (anti antígeno nuclear de proliferación celular). Imagen tomada de: Wood, G. A., Fata, J. E., Watson, K. L. M. y Khokha, R. (2007). Circulating hormones and estrous stage predict cellular and stromal remodeling in murine uterus. *Reproduction*, **133(5)**: 1035-1044. DOI: [10.1530/REP-06-0302](https://doi.org/10.1530/REP-06-0302).
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Exploración de datos y planteamiento de hipótesis
+
+Al momento de realizar un experimento o un estudio observacional, es importante recolectar los datos que de este puedan surgir, bien sea mediante instrumentos de medición o por observación directa. Esto nos permitirá después justificar la razón de nuestro estudio.
+
+.pull-left[
+<img src="img/longitud_peces.png" style="border: 1px black solid;">
+]
+
+.pull-right[
+Distribución de la longitud estándar para tres especies de peces recolectadas en la Playa Los Totumos. Imagen tomada de: Rojas, M. y Torrenegra, Y. (2024). Análisis estomacal de una comunidad íctica en un ecosistema acuático costero y determinación de tramas tróficas en dos ecosistemas propuestos. Universidad Central de Venezuela, Facultad de Ciencias, Escuela de Biología, Departamento de Ecología, Laboratorio de Ecología II (Animal). Caracas, Venezuela.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Exploración de datos y planteamiento de hipótesis
+
+Al momento de realizar un experimento o un estudio observacional, es importante recolectar los datos que de este puedan surgir, bien sea mediante instrumentos de medición o por observación directa. Esto nos permitirá después justificar la razón de nuestro estudio.
+
+.pull-left[
+<img src="img/contraccion_simple.png" style="border: 1px black solid;">
+]
+
+.pull-right[
+Señal registrada en el osciloscopio digital de la máxima contracción simple isométrica del músculo gastrocnemio de *Rhinella marina*. Imagen tomada de: Figueroa, B. y Rojas, M. (2025). Análisis de las respuestas contráctiles isométricas en la preparación ciático-gastrocnemio de *Rhinella marina*. Universidad Central de Venezuela, Facultad de Ciencias, Escuela de Biología, Departamento de Zoología, Laboratorio de Fisiología Animal. Caracas, Venezuela.
 ]
 
 ---
@@ -1633,3 +1663,25 @@ Luego, contrastamos ambos valores:
 $0 \leq -2$ ❌
 
 Por lo tanto, no tenemos suficiente evidencia para aceptar $H_{0}$, y concluimos lo mismo de antes.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Wilcoxon para rangos signados - Ejemplo
+
+También se puede hacer la prueba en R:
+
+```{r}
+wilcoxsign_test(brain ~ carotid)
+```
+
+Y en Excel:
+
+<div class="img-container">
+  <img src="img/wilcoxon_pareado_excel.png" style="border: 1px black solid;"/>
+</div>
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de Kruskal-Wallis
