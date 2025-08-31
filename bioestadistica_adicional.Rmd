@@ -1069,9 +1069,11 @@ $T=\sum\limits_{i=1}^{n}R_{i}^{+}$
 
 **9** Se busca el valor de $T_{\text{crítico}}$ en la [tabla de Wilcoxon de rangos signados](https://real-statistics.com/statistics-tables/wilcoxon-signed-ranks-table/), con el valor de $\alpha$ especificado (normalmente 0.05). Las hipótesis se contrastan como:
 
-$T \leq T_{n;\:\alpha} \text{ (DC)}\\T \leq T_{n;\: 2\alpha} \text{ (CD)}\\-T \geq -T_{n;\: 2\alpha} \text{ (CI)}$
+$T \leq T_{n;\:\alpha} \text{ (DC)}$
 
-**Nota**: Para las pruebas de una sola cola, se duplica el valor de $\alpha$ y se busca en la tabla correspondiente.
+**Nota**: Para las pruebas de una sola cola, se duplica el valor de $\alpha$ y se busca en la tabla correspondiente:
+
+$T \leq T_{n;\: 2\alpha}$
 ]
 
 .pull-right[
@@ -1301,7 +1303,7 @@ $U \leq U_{n; \:\alpha} \text{ (DC)}$
 
 Si la prueba es de una sola cola, se duplica el valor de $\alpha$ y se busca el valor de $U_{\text{crítico}}$ en la tabla correspondiente:
 
-$U \leq U_{n; \: 2 \alpha} \text{ (CD)}\\-U \geq -U_{n; \: 2 \alpha} \text{ (CI)}$
+$U \leq U_{n; \: 2 \alpha}$
 
 Si los valores de $n_{1}$ y $n_{2}$ son mayores a 20, el estadístico de prueba se cambia por $Z$, tal y como está descrito en el paso 6:
 
@@ -1547,7 +1549,9 @@ Para este ejemplo usaremos los datos de [Fuller y col. (2003)](https://doi.org/1
   <img src="img/fuller2003_table1.png" style="border: 1px black solid;"/>
 </div>
 
-En este caso, tenemos $n=6$ avestruces, a cada una de las cuales se les midió la temperatura en la arteria carótida y en el cerebro, en un período de 24 horas.
+En este caso, tenemos $n=6$ avestruces, a cada una de las cuales se les midió la temperatura arterial y cerebral, durante un período de 24 horas.
+
+**Contexto**: Las avestruces viven en entornos cálidos. Se sabe que los mamíferos que viven en entornos similares poseen mencanismos para regular la temperatura cerebral en relación con la corporal. Se desea saber si las avestruces pueden hacer lo mismo.
 
 ---
 class: justify, animate__animated, animate__fadeIn
@@ -1556,11 +1560,11 @@ class: justify, animate__animated, animate__fadeIn
 
 Planteamos las hipótesis:
 
-$H_{0}:Med_{d}=0\\H_{a}:Med_{d} \neq 0$
+$H_{0}:Med_{d}=0\\H_{a}:Med_{d} \leq 0$
 
 O alternativamente:
 
-$H_{0}:Med_{\text{Cerebro}}-Med_{\text{Carótida}}=0\\H_{a}:Med_{\text{Cerebro}}-Med_{\text{Carótida}} \neq 0$
+$H_{0}:Med_{\text{Cerebral}}-Med_{\text{Arterial}}=0\\H_{a}:Med_{\text{Cerebral}}-Med_{\text{Arterial}} \leq 0$
 
 Calculamos las diferencias entre temperaturas:
 
@@ -1601,11 +1605,11 @@ Y luego calculamos el estadístico de prueba $T$:
 
 $T=\frac{\sum\limits_{i=1}^{6}R_{i}}{\sqrt{\sum\limits_{i=1}^{6}R_{i}^{2}}}=\frac{21}{\sqrt{90.5}}=2.2075$
 
-Lo comparamos contra un valor de $Z_{\text{crítico}}$ de 1.96:
+Lo comparamos contra un valor de $Z_{\text{crítico}}$ de -1.64:
 
-$2.2075 \geq 1.96$ ✅
+$2.2075 \leq -1.64$ ❌
 
-Por lo tanto, no tenemos suficiente evidencia para aceptar $H_{0}$, y concluimos diciendo hay una diferencia en la temperatura de la carótida y el cerebro de las avestruces luego de un período de 24 horas.
+Por lo tanto, tenemos suficiente evidencia para aceptar $H_{0}$, y concluimos diciendo no hay diferencia en la temperatura arterial y cerebral de las avestruces.
 
 ---
 class: justify, animate__animated, animate__fadeIn
@@ -1622,10 +1626,10 @@ $T=min(R_{i}^{+},R_{i}^{-})=0$
 
 Buscamos el valor de $T_{\text{crítico}}$ en la [tabla de Wilcoxon de rangos signados](https://real-statistics.com/statistics-tables/wilcoxon-signed-ranks-table/) para un valor de $\alpha=0.05$ y $n=6$, el cual es:
 
-$T_{\text{crítico}}=0$
+$T_{\text{crítico}}=-2$
 
 Luego, contrastamos ambos valores:
 
-$0 \leq 0$ ✅
+$0 \leq -2$ ❌
 
 Por lo tanto, no tenemos suficiente evidencia para aceptar $H_{0}$, y concluimos lo mismo de antes.
