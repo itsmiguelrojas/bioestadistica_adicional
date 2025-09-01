@@ -1932,3 +1932,45 @@ background-size: cover
 .pull-left[
 ### Regresión lineal
 ]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Relación entre dos variables
+
+En ocasiones, podemos estar interesados en el vínculo que pudiese existir entre dos variables. La manera más sencilla de ver esto es a través de la correlación y la regresión lineal. La primera mide la asociación entre las dos variables, mientras que la segunda mide de qué forma y cuánto cambia una variable dependiente (o de respuesta o salida) de acuerdo a la dependiente (o explicatoria o de entrada).
+
+.pull-left[
+<div class="img-container">
+  <img src="img/correlacion_tipos.png" style="border: 1px black solid;"/>
+</div>
+]
+
+.pull-right[
+$r$ representa el coeficiente de correlación, el cual indica la fuerza de asociación entre dos variables. Este se escribe de la forma. Cuando hablamos de una población, su parámetro se expresa como $\rho$.
+
+La regresión lineal se escribe de la forma:
+
+$Y=b_{0}+b_{1}X+\color{blue}e\\Y=\beta_{0}+\beta_{1}X+\color{blue}\epsilon$
+
+donde $b_{0}$ es el punto de corte con el eje Y. $b_{1}$ es la pendiente de la recta de regresión y $e$ es el error asociado al modelo de regresión.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Relación entre dos variables
+
+$b_{0}:\text{Punto de corte con el eje Y.}\\b_{1}:\text{Pendiente de la recta.}\\r:\text{Coeficiente de correlación de Pearson.}$
+
+Para calcular la pendiente de la recta, aplicamos la siguiente fórmula:
+
+$b_{1}=\frac{\sum\limits_{i=1}^{n}\left(X_{i}-\bar{X}\right)\left(Y_{i}-\bar{Y}\right)}{\sum\limits_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}}=\frac{Cov_{XY}}{s_{X}^{2}}$
+
+Para calcular el punto de corte por el eje Y, aplicamos la siguiente fórmula:
+
+$b_{0}=\bar{Y}-b_{1}\bar{X}$
+
+Por otro, el coeficiente de correlación se expresa de la forma:
+
+$r=\frac{\sum\limits_{i=1}^{n}\left(X_{i}-\bar{X}\right)\left(Y_{i}-\bar{Y}\right)}{\sqrt{\left(\sum\limits_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}\right) \left(\sum\limits_{i=1}^{n}\left(Y_{i}-\bar{Y}\right)^{2}\right)}}=\frac{Cov_{XY}}{s_{X}s_{Y}}$
