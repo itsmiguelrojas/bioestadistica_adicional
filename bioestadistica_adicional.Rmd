@@ -1974,3 +1974,111 @@ $b_{0}=\bar{Y}-b_{1}\bar{X}$
 Por otro, el coeficiente de correlación se expresa de la forma:
 
 $r=\frac{\sum\limits_{i=1}^{n}\left(X_{i}-\bar{X}\right)\left(Y_{i}-\bar{Y}\right)}{\sqrt{\left(\sum\limits_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}\right) \left(\sum\limits_{i=1}^{n}\left(Y_{i}-\bar{Y}\right)^{2}\right)}}=\frac{Cov_{XY}}{s_{X}s_{Y}}$
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación y recta de regresión - Ejemplo
+
+Vamos a utilizar datos de [Whitman y col. (2004)](https://doi.org/10.1038/nature02395), que relaciona la proporción de la pigmentación de hocicos de leones con su edad:
+
+```{r regresion_1, fig.height=3.5}
+# Cargar datos ----
+pigmentacion <- read_xlsx('datos/whitman2004.xlsx')
+
+# Gráfico de puntos ----
+pigmentacion %>%
+  ggplot(aes(x = edad, y = proporcion_pigmentacion)) +
+  geom_point() +
+  labs(
+    x = 'Edad (años)',
+    y = 'Pigmentación (%)',
+    title = 'Estimación de la edad de leones a través de la coloración del hocico'
+  ) +
+  theme_minimal()
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación y recta de regresión - Ejemplo
+
+Edad (años):
+
+```{r}
+pigmentacion$edad
+```
+
+Pigmentación (%):
+
+```{r}
+pigmentacion$proporcion_pigmentacion
+```
+
+Primero, vamos a calcular los promedios:
+
+$\bar{X}=\frac{1.1+1.5+1.9+\dots+5.4}{32}=4.309375 \\ \bar{Y}=\frac{0.21+0.14+0.11+\dots+0.51}{32}=0.3221875$
+
+Y sus varianzas:
+
+$s_{X}^{2}=\frac{(1.1-4.309375)^2+(1.5-4.309375)^2+\dots+(5.4-4.309375)^2}{32-1}=7.164103\\s_{Y}^{2}=\frac{(0.21-0.3221875)^{2}+(0.14-0.3221875)^{2}+\dots+(0.51-0.3221875)^{2}}{32-1}=0.03942409$
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación y recta de regresión - Ejemplo
+
+También calculamos la covarianza:
+
+$Cov_{XY}=\frac{(1.1-4.309375 )(0.21-0.3221875)+(1.5-4.309375)(0.14-0.3221875)+\dots+(5.4-4.309375)(0.51-0.3221875)}{32-1}=0.419753$
+
+Ahora, solo nos falta calcular la pendiente y el punto de corte con el eje Y:
+
+$b_{1}=\frac{0.419753}{7.164103}=0.05859\\b_{0}=0.3221875-(0.05859)(4.309375)=0.06970$
+
+Así como el coeficiente de correlación:
+
+$r=\frac{0.05859115}{\sqrt{(7.164103)(0.03942409)}}=0.7898$
+
+Por lo tanto, la curva de regresión es:
+
+$Y=0.06970+0.05859X$
+
+Con una correlación de:
+
+$r=0.7898$
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación y recta de regresión - Ejemplo
+
+```{r regresion_2, fig.height=3.5, message=FALSE}
+# Cargar datos ----
+pigmentacion <- read_xlsx('datos/whitman2004.xlsx')
+
+# Gráfico de puntos ----
+pigmentacion %>%
+  ggplot(aes(x = edad, y = proporcion_pigmentacion)) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  labs(
+    x = 'Edad (años)',
+    y = 'Pigmentación (%)',
+    title = 'Estimación de la edad de leones a través de la coloración del hocico'
+  ) +
+  theme_minimal()
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación y recta de regresión - Ejemplo
+
+Podemos hacer el camino de la inversa. De esta manera, a partir de un valor de $Y$ dado, podemos saber cuál es su valor de $X$ correspondiente.
+
+$X=b_{0}^{'}+b_{1}^{'}Y$
+
+Para el ejemplo anterior, $b_{0}^{'}$ y $b_{1}^{'}$ son:
+
+$b_{0}^{'}=0.8790\\b_{1}^{'}=10.6471$
