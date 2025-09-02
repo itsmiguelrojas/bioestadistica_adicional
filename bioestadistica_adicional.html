@@ -1903,7 +1903,7 @@ class: justify, animate__animated, animate__fadeIn
 
 ## Relación entre dos variables
 
-En ocasiones, podemos estar interesados en el vínculo que pudiese existir entre dos variables. La manera más sencilla de ver esto es a través de la correlación y la regresión lineal. La primera mide la asociación entre las dos variables, mientras que la segunda mide de qué forma y cuánto cambia una variable dependiente (o de respuesta o salida) de acuerdo a la dependiente (o explicatoria o de entrada).
+En ocasiones, podemos estar interesados en el vínculo que pudiese existir entre dos variables. La manera más sencilla de ver esto es a través de la correlación y la regresión lineal. La primera mide la asociación entre las dos variables, mientras que la segunda mide de qué forma y cuánto cambia una variable dependiente (o de respuesta o salida) de acuerdo a la independiente (o explicatoria o de entrada).
 
 .pull-left[
 &lt;div class="img-container"&gt;
@@ -2019,9 +2019,42 @@ Podemos hacer el camino de la inversa. De esta manera, a partir de un valor de `
 
 `\(X=b_{0}^{'}+b_{1}^{'}Y\)`
 
-Para el ejemplo anterior, `\(b_{0}^{'}\)` y `\(b_{1}^{'}\)` son:
+Para el ejemplo anterior, `\(b_{0}^{'}\)` y `\(b_{1}^{'}\)` serían:
 
 `\(b_{0}^{'}=0.8790\\b_{1}^{'}=10.6471\)`
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación y recta de regresión - Ejemplo
+
+Por otro lado, para validar que el modelo sea correcto, se puede comprobar la normalidad de sus residuales, los cuales se calculan mediante la fórmula:
+
+`\(\text{residuales}=Y_{i}-\hat{Y}_{i}\)`
+
+
+```
+##  [1]  0.07585347 -0.01758299 -0.07101945 -0.06859679 -0.10203325 -0.12718794 -0.13718794
+##  [8] -0.05961060  0.01968498  0.02726232  0.01898055 -0.01101945 -0.03101945  0.08898055
+## [15]  0.02624852 -0.07062440 -0.02163821  0.12765737  0.11422091  0.20391153  0.19047507
+## [22]  0.29875684  0.02109383 -0.20406086 -0.01741166 -0.05741166 -0.18670723 -0.11569343
+## [29] -0.14569343 -0.09724033  0.20470162  0.12391153
+```
+
+.pull-left[
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  pigmentacion.lm$residuals
+## W = 0.9665, p-value = 0.4087
+```
+]
+
+.pull-right[
+![](bioestadistica_adicional_files/figure-html/distribucion_residuales-1.png)&lt;!-- --&gt;
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

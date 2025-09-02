@@ -1938,7 +1938,7 @@ class: justify, animate__animated, animate__fadeIn
 
 ## Relación entre dos variables
 
-En ocasiones, podemos estar interesados en el vínculo que pudiese existir entre dos variables. La manera más sencilla de ver esto es a través de la correlación y la regresión lineal. La primera mide la asociación entre las dos variables, mientras que la segunda mide de qué forma y cuánto cambia una variable dependiente (o de respuesta o salida) de acuerdo a la dependiente (o explicatoria o de entrada).
+En ocasiones, podemos estar interesados en el vínculo que pudiese existir entre dos variables. La manera más sencilla de ver esto es a través de la correlación y la regresión lineal. La primera mide la asociación entre las dos variables, mientras que la segunda mide de qué forma y cuánto cambia una variable dependiente (o de respuesta o salida) de acuerdo a la independiente (o explicatoria o de entrada).
 
 .pull-left[
 <div class="img-container">
@@ -2079,6 +2079,31 @@ Podemos hacer el camino de la inversa. De esta manera, a partir de un valor de $
 
 $X=b_{0}^{'}+b_{1}^{'}Y$
 
-Para el ejemplo anterior, $b_{0}^{'}$ y $b_{1}^{'}$ son:
+Para el ejemplo anterior, $b_{0}^{'}$ y $b_{1}^{'}$ serían:
 
 $b_{0}^{'}=0.8790\\b_{1}^{'}=10.6471$
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación y recta de regresión - Ejemplo
+
+Por otro lado, para validar que el modelo sea correcto, se puede comprobar la normalidad de sus residuales, los cuales se calculan mediante la fórmula:
+
+$\text{residuales}=Y_{i}-\hat{Y}_{i}$
+
+```{r}
+as.numeric(pigmentacion.lm$residuals)
+```
+
+.pull-left[
+```{r}
+shapiro.test(pigmentacion.lm$residuals)
+```
+]
+
+.pull-right[
+```{r distribucion_residuales, fig.height=4.5}
+hist(pigmentacion.lm$residuals, main='Distribución de residuales')
+```
+]
