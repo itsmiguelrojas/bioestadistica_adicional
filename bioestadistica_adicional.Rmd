@@ -1947,11 +1947,11 @@ En ocasiones, podemos estar interesados en el vínculo que pudiese existir entre
 ]
 
 .pull-right[
-$r$ representa el coeficiente de correlación, el cual indica la fuerza de asociación entre dos variables. Este se escribe de la forma. Cuando hablamos de una población, su parámetro se expresa como $\rho$.
+$r$ representa el coeficiente de correlación de Pearson, el cual indica la fuerza de asociación entre dos variables. Cuando hablamos de una población, su parámetro se expresa como $\rho$.
 
 La regresión lineal se escribe de la forma:
 
-$Y=b_{0}+b_{1}X+\color{blue}e\\Y=\beta_{0}+\beta_{1}X+\color{blue}\epsilon$
+$Y=b_{0}+b_{1}X+\color{red}e\\Y=\beta_{0}+\beta_{1}X+\color{red}\epsilon$
 
 donde $b_{0}$ es el punto de corte con el eje Y (el valor que toma $Y$ cuando $X$ vale 0), $b_{1}$ es la pendiente de la recta de regresión y $e$ es el error asociado al modelo de regresión.
 ]
@@ -2126,7 +2126,7 @@ $R^{2}=\frac{\sum\limits_{i=1}^{n}\left(\hat{Y}_{i}-\bar{Y}\right)^{2}}{\sum\lim
 
 en donde:
 
-$\color{blue}{\sum\limits_{i=1}^{n}\left(Y_{i}-\bar{Y}\right)^{2}}=\color{blue}{\sum\limits_{i=1}^{n}\left(\hat{Y}_{i}-\bar{Y}\right)^{2}}+\sum\limits_{i=1}^{n}\left(Y_{i}-\hat{Y}_{i}\right)^{2}\\\color{blue}{SS_{tot}}=\color{blue}{SS_{R}}+SS_{res}$
+$\color{red}{\sum\limits_{i=1}^{n}\left(Y_{i}-\bar{Y}\right)^{2}}=\color{red}{\sum\limits_{i=1}^{n}\left(\hat{Y}_{i}-\bar{Y}\right)^{2}}+\sum\limits_{i=1}^{n}\left(Y_{i}-\hat{Y}_{i}\right)^{2}\\\color{red}{SS_{tot}}=\color{red}{SS_{R}}+SS_{res}$
 
 Del ejemplo anterior: $r^{2}=0.7898^{2}=0.6238$. Es decir, un 62.38% de los valores de la proporción de la pigmentación son explicados por el modelo.
 
@@ -2215,6 +2215,165 @@ Intervalo de confianza de la intersección y la pendiente:
 ```{r}
 confint(pigmentacion.lm)
 ```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación por rangos de Spearman
+
+.pull-left[
+- No requiere que la relación sea lineal.
+
+- Funciona con datos ordinales además de datos continuos.
+
+- Menos sensible a valores atípicos.
+
+- Captura relaciones monotónicas, aunque no sean lineales.
+
+- No exige normalidad en las variables.
+
+El coeficiente de correlación de Spearman se calcula como:
+
+$r=1-\frac{6\sum\limits_{i=1}^{n}d_{i}^{2}}{n\left(n^{2}-1\right)}$
+
+donde $d_{i}$ es la diferencia entre los rangos de ambas variables.
+]
+
+.pull-right[
+**¿Cómo se calcula?**
+
+1. Se ordenan los datos de $X$ y de $Y$ en *rankings* separados.
+
+2. Se calcula la diferencia entre los *rankings*: $d_{i}=R_{X}-R_{Y}$.
+
+3. Las diferencias se elevan al cuadrado y se suman.
+
+4. Se calcula el coeficiente de correlación con la fórmula descrita anteriormente. Si hay empates, se calcula el coeficiente de correlación de Pearson utilizando los *rankings* en lugar de los valores directos.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación por rangos de Spearman - Ejemplo
+
+Del ejemplo anterior:
+
+**Edad**:
+
+```{r}
+edad.ranking <- c(1,2,rep(5,5),8,9,10,11,12,13,14.5,14.5,16,17,18,19,20,21,22.5,22.5,24,25,26.5,26.5,28.5,28.5,30,31,32)
+
+edad.ranking
+```
+
+**Pigmentación**:
+
+```{r}
+pigmentacion.ranking <- c(12.5,7,2,8,9,11,17,14,5.5,15,3.5,16,10,3.5,5.5,18,12.5,23,1,24,19,27,28,29,30,20.5,22,25,26,20.5,32,31)
+
+pigmentacion.ranking
+```
+
+Su diferencia:
+
+```{r}
+edad.ranking - pigmentacion.ranking
+```
+
+Lo elevamos al cuadrado:
+
+```{r}
+(edad.ranking - pigmentacion.ranking)^2
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Coeficiente de correlación por rangos de Spearman - Ejemplo
+
+Sumamos los cuadrados de las diferencias, lo cual nos da:
+
+$\sum\limits_{i=1}^{32}d_{i}=132.25+25+9+\dots+1=1388.5$
+
+Así:
+
+$r=1-\frac{6\left(1388.5\right)}{32\left(32^{2}-1\right)}=0.7455$
+
+Sin embargo, como hay empates, debería calcularse el coeficiente de correlación de Spearman con los *rankings*:
+
+$r=\frac{Cov_{R_{X}R_{Y}}}{s_{R_{X}}s_{R_{Y}}}=\frac{65.3790}{(9.3602)(9.3774)}=0.7448$
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Transformación de variables
+
+.pull-left[
+```{r regresion_3, fig.height=8}
+salida.campo %>%
+  filter(muerto == 'No') %>%
+  ggplot(aes(x = area.basal, y = altura)) +
+  geom_point() +
+  labs(
+    x = 'Área basal (m²/ha.)',
+    y = 'Altura (m)',
+    title = 'Altura de individuos vegetales en función de su área basal',
+    subtitle = 'Cerro El Volcán (CV) y Jardín Botánico de Caracas (JB)'
+  ) +
+  theme_minimal()
+```
+]
+
+.pull-right[
+**Pearson**:
+
+```{r}
+cor(salida.campo[salida.campo$muerto == 'No',]$area.basal, salida.campo[salida.campo$muerto == 'No',]$altura, method = 'pearson')
+```
+
+**Spearman**:
+
+```{r}
+cor(salida.campo[salida.campo$muerto == 'No',]$area.basal, salida.campo[salida.campo$muerto == 'No',]$altura, method = 'spearman')
+```
+
+Los datos no poseen una tendencia lineal. En este caso, el coeficiente de correlación de Spearman es una mejor opción para expresar la correlación entre las variables. También se podría optar por transformar las variables (por ejemplo, aplicar la función $log_{10}$ a ambas variables), y recalcular el valor de correlación de Pearson.
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Transformación de variables
+
+.pull-left[
+```{r regresion_4, fig.height=8}
+salida.campo %>%
+  filter(muerto == 'No') %>%
+  ggplot(aes(x = log10(area.basal), y = log10(altura))) +
+  geom_point() +
+  labs(
+    x = 'log(Área basal (m²/ha.))',
+    y = 'log(Altura (m))',
+    title = 'Altura de individuos vegetales en función de su área basal',
+    subtitle = 'Cerro El Volcán (CV) y Jardín Botánico de Caracas (JB)'
+  ) +
+  theme_minimal()
+```
+]
+
+.pull-right[
+**Pearson**:
+
+```{r}
+cor(log10(salida.campo[salida.campo$muerto == 'No',]$area.basal), log10(salida.campo[salida.campo$muerto == 'No',]$altura), method = 'pearson')
+```
+
+**Spearman**:
+
+```{r}
+cor(log10(salida.campo[salida.campo$muerto == 'No',]$area.basal), log10(salida.campo[salida.campo$muerto == 'No',]$altura), method = 'spearman')
+```
+]
 
 ---
 class: justify, animate__animated, animate__fadeIn
