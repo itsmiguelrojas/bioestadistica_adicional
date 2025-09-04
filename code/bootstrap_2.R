@@ -59,8 +59,10 @@ alt.jb.ho <- alt.jb.sample - mean(alt.jb.sample)
 diff <- mean(alt.cv.sample) - mean(alt.jb.sample)
 
 # Bootstrapping ----
-B <- 19999
+B <- 9999
 diff.means <- vector('numeric', B)
+
+set.seed(123)
 
 for(i in 1:B){
   sample.1 <- sample(alt.cv.ho, size = length(alt.cv.ho), replace = T)
@@ -74,8 +76,19 @@ for(i in 1:B){
 diff.means %>%
   as_tibble() %>%
   ggplot(aes(x = value)) +
-  geom_histogram(bins = 15, color = 'black')
+  geom_histogram(bins = 14, fill = color.p[1], color = 'black') +
+  geom_vline(xintercept = c(-diff,diff), linetype = 'dashed') +
+  annotate(geom = 'label', x = diff, y = 1500, label = paste0('X = ', diff)) +
+  annotate(geom = 'label', x = -diff, y = 1500, label = paste0('X = ', -diff)) +
+  annotate(geom = 'label', x = -2, y = 2000, label = paste0('p = ', round(mean(diff.means >= diff) + mean(diff.means <= -diff),4))) +
+  labs(
+    x = 'Diferencia de promedios',
+    y = 'Conteo',
+    title = 'Distribución de diferencia de promedios de las alturas de individuos vegetales',
+    subtitle = 'Cerro El Volcán (CV) y Jardín Botánico de Caracas (JB)'
+  ) +
+  theme_minimal()
 
 # Cálculo del p-valor
 
-mean(diff.means >= diff)
+mean(diff.means >= diff) + mean(diff.means <= -diff)

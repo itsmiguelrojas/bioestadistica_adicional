@@ -2518,3 +2518,211 @@ $p_{B}=P\left(T \geq T_{0}|H_{0}\right)+P\left(T \leq -T_{0}|H_{0}\right)$
 ----
 
 **5**. Se elige un valor de $\alpha$ (por lo general 0.05). Si $p_{B} \leq \alpha$, no hay suficiente evidencia para aceptar $H_{0}$, y se debe optar por $H_{a}$.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Regla del 99
+
+Propuesta por [Boos y Stefanski (2013)](https://doi.org/10.1007/978-1-4614-4818-1), esta regla ofrece un enfoque sobre el número de muestras que se deben tomar para estimar los p-valores. Para ello, se debe tomar un número de muestras que sea uno menos que un múltiplo de 100 (99, 999, 9999, etc.) con tal de mantener la integridad del nivel de significancia.
+
+Más concretamente, los posibles p-valores a obtener son múltiplos de $1/\left(1+B\right)$.
+
+Por ejemplo, con $B=99$, los p-valores del 1 al 10 son:
+
+```{r}
+1:10/(1+99)
+```
+
+Mientras que con $B=100$ son:
+
+```{r}
+round(1:10/(1+100), 4)
+```
+
+Si trabajamos con un valor de $\alpha=0.05$, bajo el segundo escenario es imposible un tener un p-valor igual a 0.05, lo que puede generar una ligera imprecisión al determinar la significancia estadística.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Ventajas y desventajas del bootstrap
+
+<br/>
+
+|Ventajas|Desventajas|
+|:---|:---|
+|No requiere suposiciones sobre la distribución de los datos.|Puede ser computacionalmente intensivo (aunque con las computadoras actuales, esto ya no es una limitante).|
+|Se puede aplicar a cualquier estadística.|	Resultados pueden ser inestables con muestras pequeñas.|
+|Proporciona intervalos de confianza más precisos en algunos casos.|Puede no funcionar bien con datos altamente sesgados.|
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Intervalo de confianza con bootstrap - Ejemplo
+
+Como la aplicación del bootstrapping requiere muchas iteraciones, mostramos aquí un código de ejemplo con los datos de 50 muestras del peso total de abulones:
+
+.code[
+```{r echo=TRUE, fig.show='hide'}
+# Número de iteraciones y vector para almacenar los promedios
+B <- 9999
+abalone.means <- vector('numeric', B)
+
+# Semilla para reproducibilidad de los datos
+set.seed(123)
+
+# Bucle 'for' para realizar el remuestreo
+for(i in 1:B){
+  sample.1 <- sample(abalone.muestra, size = length(abalone.muestra), replace = T)
+  
+  abalone.means[i] <- mean(sample.1)
+}
+
+# Gráfico de la distribución del estadístico con su intervalo de confianza al 95%
+abalone.means %>%
+  as_tibble() %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 14, fill = color.p[1], color = 'black') +
+  geom_vline(xintercept = quantile(abalone.means, probs = c(0.025, 0.975)), linetype = 'dashed') +
+  geom_vline(aes(xintercept = median(value)), linetype = 'dashed', linewidth = 2) +
+  labs(
+    x = 'Peso total (g)',
+    y = 'Conteo',
+    title = 'Distribución del promedio del peso total de abulones',
+    subtitle = 'Remuestreo por bootstrap'
+  ) +
+  annotate(geom = 'label', x = 0.55, y = 1500, label = paste0('P2.5 = ', round(quantile(abalone.means, probs = c(0.025)), 4))) +
+  annotate(geom = 'label', x = 0.965, y = 1500, label = paste0('P97.5 = ', round(quantile(abalone.means, probs = c(0.975)), 4))) +
+  annotate(geom = 'label', x = 0.75, y = 2700, label = 'Mediana = 0.7502') +
+  theme_minimal()
+```
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Intervalo de confianza con bootstrap - Ejemplo
+
+Lo cual genera la siguiente distribución:
+
+```{r distribucion_boot_1, fig.height=3.5}
+abalone.means %>%
+  as_tibble() %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 14, fill = color.p[1], color = 'black') +
+  geom_vline(xintercept = quantile(abalone.means, probs = c(0.025, 0.975)), linetype = 'dashed') +
+  geom_vline(aes(xintercept = median(value)), linetype = 'dashed', linewidth = 2) +
+  labs(
+    x = 'Peso total (g)',
+    y = 'Conteo',
+    title = 'Distribución del promedio del peso total de abulones',
+    subtitle = 'Remuestreo por bootstrap'
+  ) +
+  annotate(geom = 'label', x = 0.55, y = 1500, label = paste0('P2.5 = ', round(quantile(abalone.means, probs = c(0.025)), 4))) +
+  annotate(geom = 'label', x = 0.965, y = 1500, label = paste0('P97.5 = ', round(quantile(abalone.means, probs = c(0.975)), 4))) +
+  annotate(geom = 'label', x = 0.75, y = 2700, label = 'Mediana = 0.7502') +
+  theme_minimal()
+```
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de hipótesis y cálculo del p-valor - Ejemplo
+
+En este ejemplo, haremos el cálculo del p-valor para la diferencia de promedios entre las alturas de individuos vegetales de Cerro El Volcán (CV) y el Jardín Botánico de Caracas (JB):
+
+.code[
+```{r echo=TRUE, fig.show='hide'}
+# Centrar en cero ----
+alt.cv.ho <- alt.cv.sample - mean(alt.cv.sample)
+alt.jb.ho <- alt.jb.sample - mean(alt.jb.sample)
+
+# Diferencia de medias ----
+diff <- mean(alt.cv.sample) - mean(alt.jb.sample)
+
+# Bootstrapping ----
+B <- 9999
+diff.means <- vector('numeric', B)
+
+set.seed(123)
+
+for(i in 1:B){
+  sample.1 <- sample(alt.cv.ho, size = length(alt.cv.ho), replace = T)
+  sample.2 <- sample(alt.jb.ho, size = length(alt.jb.ho), replace = T)
+  
+  diff.means[i] <- mean(sample.1) - mean(sample.2)
+}
+
+# Ver distribución de diferencias de media bajo H0 ----
+
+diff.means %>%
+  as_tibble() %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 14, fill = color.p[1], color = 'black') +
+  geom_vline(xintercept = c(-diff,diff), linetype = 'dashed') +
+  annotate(geom = 'label', x = diff, y = 1500, label = paste0('X = ', diff)) +
+  annotate(geom = 'label', x = -diff, y = 1500, label = paste0('X = ', -diff)) +
+  annotate(geom = 'label', x = -2, y = 2000, label = paste0('p = ', round(mean(diff.means >= diff) + mean(diff.means <= -diff),4))) +
+  labs(
+    x = 'Diferencia de promedios',
+    y = 'Conteo',
+    title = 'Distribución de diferencia de promedios de las alturas de individuos vegetales',
+    subtitle = 'Cerro El Volcán (CV) y Jardín Botánico de Caracas (JB)'
+  ) +
+  theme_minimal()
+```
+]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de hipótesis y cálculo del p-valor - Ejemplo
+
+```{r distribucion_boot_2, fig.height=3.5}
+# Centrar en cero ----
+alt.cv.ho <- alt.cv.sample - mean(alt.cv.sample)
+alt.jb.ho <- alt.jb.sample - mean(alt.jb.sample)
+
+# Diferencia de medias ----
+diff <- mean(alt.cv.sample) - mean(alt.jb.sample)
+
+# Bootstrapping ----
+B <- 9999
+diff.means <- vector('numeric', B)
+
+set.seed(123)
+
+for(i in 1:B){
+  sample.1 <- sample(alt.cv.ho, size = length(alt.cv.ho), replace = T)
+  sample.2 <- sample(alt.jb.ho, size = length(alt.jb.ho), replace = T)
+  
+  diff.means[i] <- mean(sample.1) - mean(sample.2)
+}
+
+# Ver distribución de diferencias de media bajo H0 ----
+
+diff.means %>%
+  as_tibble() %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 14, fill = color.p[1], color = 'black') +
+  geom_vline(xintercept = c(-diff,diff), linetype = 'dashed') +
+  annotate(geom = 'label', x = diff, y = 1500, label = paste0('X = ', diff)) +
+  annotate(geom = 'label', x = -diff, y = 1500, label = paste0('X = ', -diff)) +
+  annotate(geom = 'label', x = -2, y = 2000, label = paste0('p = ', round(mean(diff.means >= diff) + mean(diff.means <= -diff),4))) +
+  labs(
+    x = 'Diferencia de promedios',
+    y = 'Conteo',
+    title = 'Distribución de diferencia de promedios de las alturas de individuos vegetales',
+    subtitle = 'Cerro El Volcán (CV) y Jardín Botánico de Caracas (JB)'
+  ) +
+  theme_minimal()
+```
+
+---
+class: middle, inverse, center, animate__animated, animate__fadeIn
+background-image: url(markus-spiske-I-0OS5iRp0Q-unsplash.jpg)
+background-size: cover
+
+.pull-left[
+### ¡Muchas gracias!
+]

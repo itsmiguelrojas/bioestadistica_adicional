@@ -20,3 +20,12 @@ div.img-container{
 table {
   font-size: 0.8em;
 }
+
+.code {
+  height: 450px;
+  overflow: scroll;
+}
+
+.hljs-googlecode .hljs {
+  overflow-x: visible;
+}
