@@ -51,26 +51,18 @@ alt.jb.sample <- alt.jb %>%
   slice_sample(n = 30) %>%
   pull()
 
-salida.campo.mw <- tibble(
-  lugar = factor(rep(c('CV','JB'), each = 30)),
-  altura = c(alt.cv.sample, alt.jb.sample)
-)
-
 # Centrar en cero ----
-alt.cv.ho <- alt.cv - mean(alt.cv)
-alt.jb.ho <- alt.jb - mean(alt.jb)
+alt.cv.ho <- alt.cv.sample - mean(alt.cv.sample)
+alt.jb.ho <- alt.jb.sample - mean(alt.jb.sample)
 
 # Diferencia de medias ----
-diff <- mean(alt.cv) - mean(alt.jb)
+diff <- mean(alt.cv.sample) - mean(alt.jb.sample)
 
 # Bootstrapping ----
 B <- 19999
 diff.means <- vector('numeric', B)
 
 for(i in 1:B){
-  #sample.1 <- sample(alt.cv.ho, size = length(alt.cv.ho), replace = T)
-  #sample.2 <- sample(alt.jb.ho, size = length(alt.jb.ho), replace = T)
-  
   sample.1 <- sample(alt.cv.ho, size = length(alt.cv.ho), replace = T)
   sample.2 <- sample(alt.jb.ho, size = length(alt.jb.ho), replace = T)
   
@@ -82,7 +74,7 @@ for(i in 1:B){
 diff.means %>%
   as_tibble() %>%
   ggplot(aes(x = value)) +
-  geom_histogram(bins = 14, color = 'black')
+  geom_histogram(bins = 15, color = 'black')
 
 # Cálculo del p-valor
 

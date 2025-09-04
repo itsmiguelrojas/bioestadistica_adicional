@@ -1011,6 +1011,8 @@ class: justify, animate__animated, animate__fadeIn
 
 ## Un momento... ¿cómo que hay más de un ANOVA?
 
+<br/>
+
 | **Tipo de prueba** | **Función** |
 |:---:|:---|
 | ANOVA de una vía | Compara las medias de tres o más grupos independientes para determinar si al menos uno es diferente. |
@@ -1523,7 +1525,7 @@ Comparamos este valor contra un $Z_{\text{crítico}}$ de 1.96:
 
 $|-3.41962| \geq 1.96$ ✅
 
-Por lo tanto, no tenemos suficiente evidencia para aceptar $H_{0}$. Concluimos que la diferencia entre alturas de individuos vegetales de CV y JB es distinta.
+Por lo tanto, no tenemos suficiente evidencia para aceptar $H_{0}$. Concluimos que la diferencia entre alturas de individuos vegetales de CV y JB es distinta de 0.
 ]
 
 ---
@@ -2248,7 +2250,7 @@ donde $d_{i}$ es la diferencia entre los rangos de ambas variables.
 
 3. Las diferencias se elevan al cuadrado y se suman.
 
-4. Se calcula el coeficiente de correlación con la fórmula descrita anteriormente. Si hay empates, se calcula el coeficiente de correlación de Pearson utilizando los *rankings* en lugar de los valores directos.
+4. Se calcula el coeficiente de correlación con la fórmula descrita anteriormente. Si hay empates, se calcula el coeficiente de correlación de Pearson utilizando los *rankings* en lugar de las observaciones directas.
 ]
 
 ---
@@ -2373,6 +2375,8 @@ cor(log10(salida.campo[salida.campo$muerto == 'No',]$area.basal), log10(salida.c
 ```{r}
 cor(log10(salida.campo[salida.campo$muerto == 'No',]$area.basal), log10(salida.campo[salida.campo$muerto == 'No',]$altura), method = 'spearman')
 ```
+
+El coeficiente de correlación de Spearman tiene el mismo valor de antes. ¿Por qué?
 ]
 
 ---
@@ -2401,3 +2405,116 @@ background-size: cover
 .pull-left[
 ### Bootstrapping
 ]
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## ¿Qué es el bootstrapping?
+
+Según el diccionario de Cambridge:
+
+<div class="img-container">
+  <img src="img/bootstrap_significado.png"/>
+</div>
+
+En estadística, el [bootstrapping](https://doi.org/10.1214/aos/1176344552) es una técnica de remuestreo, introducida por Bradley Efron en 1979. Es utilizada para estimar la distribución de un estadístico (como el promedio, la varianza, la mediana, la pendiente, etc.) muestreando **con reemplazo** varias veces de una muestra obtenida de la población. De esta manera, se aprovecha una cantidad de datos reducida para hacer inferencias sobre los estimadores.
+
+Así como usamos un calzador que nos ayuda a ponernos el calzado, el bootstrapping nos ayuda a extraer más información de los datos ya existentes sin la necesidad de datos adicionales.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Pasos para realizar un bootstrapping
+
+<div class="img-container">
+  <img src="img/illustration_bootstrap.jpg"/>
+</div>
+
+1. Tomar una muestra aleatoria de una población.
+
+2. Tomar muestras aleatorias con reemplazo de la muestra (remuestreo).
+
+3. Calcular el estadístico de interés a partir de cada remuestreo.
+
+4. Visualizar la distribución del estadístico.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Pasos para realizar un bootstrapping
+
+<br/>
+<div class="img-container">
+<iframe src="https://seeing-theory.brown.edu/frequentist-inference/es.html#section3" width="1000" height="500"></iframe>
+</div>
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Intervalo de confianza con bootstrap
+
+Para calcular un intervalo de confianza utilizando la técnica de bootstrap, se siguen estos pasos:
+
+1. Se comienza con una muestra original de datos que se desea analizar.
+
+2. Se realizan múltiples remuestreos (generalmente entre 1000 y 10000) de la muestra original. Cada remuestreo debe ser del mismo tamaño que la muestra original, y se realiza con reemplazo.
+
+3. Para cada remuestreo, se calcula el estadístico de interés.
+
+4. Se almacenan todas las estadísticas calculadas de los remuestreos para crear una distribución empírica del estadístico.
+
+5. Se determina el intervalo de confianza a partir de la distribución de los estadísticos. Por ejemplo, para un intervalo de confianza del 95%, se selecciona el percentil 2.5 ($P_{2.5})$ y el percentil 97.5 ($P_{97.5})$ de la distribución.
+
+Este método permite estimar la variabilidad de la estadística y construir intervalos de confianza sin asumir una distribución específica de los datos.
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de hipótesis y cálculo del p-valor (diferencia de medias)
+
+Para realizar una prueba de hipótesis con bootstrap y calcular el p-valor correspondiente, se siguen estos pasos:
+
+**Diferencia de medias**
+
+**1**. Se plantean las hipótesis estadísticas:
+
+$H_{0}: \: \mu_{1}-\mu_{2}=0$
+
+$H_{a}: \: \mu_{1}-\mu_{2} > 0\\H_{a}: \: \mu_{1}-\mu_{2} < 0\\H_{a}: \: \mu_{1}-\mu_{2} \neq 0$
+
+**2**. A continuación, se calcula la diferencia de medias de las dos muestras observadas. Este será el estadístico de prueba observado:
+
+$T_{0}=\bar{X}_{1}-\bar{X}_{2}$
+
+**3**. Si ambas muestras poseen varianzas iguales ($\sigma_{1}^{2}=\sigma_{2}^{2}$), ambas se agrupan en una sola muestra, cuyo tamaño es $n_{1}+n_{2}$. Si estas poseen varianzas diferentes ($\sigma_{1}^{2} \neq \sigma_{2}^{2}$), entonces se resta de cada muestra su media correspondiente ($X_{1i}-\bar{X}_{1}$ y $X_{2i}-\bar{X}_{2}$).
+
+---
+class: justify, animate__animated, animate__fadeIn
+
+## Prueba de hipótesis y cálculo del p-valor (diferencia de medias)
+
+**3**. Se hace el remuestreo, bien con la muestra agrupada (varianzas iguales) o con las muestras centradas en 0 (varianzas diferentes), según la cantidad de veces indicada por $B$, y se calcula en cada oportunidad la diferencia de promedios.
+
+**4**. Ahora, se obtiene el p-valor calculando la proporción de estimadores que superen el umbral de la diferencia:
+
+----
+
+Si $H_{a}: \: \mu - \mu_{0}>0$:
+
+$P\left(T \geq T_{0}|H_{0}\right)=p_{B}=\frac{\text{# de }T_{B} \geq T_{0}}{B}$
+
+----
+
+Si $H_{a}: \: \mu - \mu_{0}<0$:
+
+$P\left(T \leq T_{0}|H_{0}\right)=p_{B}=\frac{\text{# de }T_{B} \leq T_{0}}{B}$
+
+----
+
+Si $H_{a}: \: \mu - \mu_{0}\neq0$:
+
+$p_{B}=P\left(T \geq T_{0}|H_{0}\right)+P\left(T \leq -T_{0}|H_{0}\right)$
+
+----
+
+**5**. Se elige un valor de $\alpha$ (por lo general 0.05). Si $p_{B} \leq \alpha$, no hay suficiente evidencia para aceptar $H_{0}$, y se debe optar por $H_{a}$.
