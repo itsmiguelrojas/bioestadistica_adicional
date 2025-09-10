@@ -97,7 +97,7 @@ class: justify, middle, animate__animated, animate__fadeIn
   - Prueba de Mann-Whitney-Wilcoxon para muestras independientes.
   - Prueba de Wilcoxon para rangos signados.
   - Prueba de Kruskal-Wallis.
-6. Regresión lineal, prueba de hipótesis de correlación y prueba de hipótesis de la pendiente.
+6. Regresión lineal, prueba de hipótesis de correlación, prueba de hipótesis de la pendiente y prueba de hipótesis de la intersección.
 7. Remuestreo por bootstrapping.
 
 ---
@@ -318,7 +318,7 @@ $\bar{X}=\frac{\sum\limits_{i=1}^{n}X_{i}}{n}\\s=\sqrt{\frac{\sum\limits_{i=1}^{
 
 $H_{0}:\text{Los datos siguen una distribución normal.}\\H_{a}:\text{Los datos no siguen una distribución normal.}$
 
-**5** Se calcula el estadítico de prueba:
+**5** Se calcula el estadístico de prueba:
 
 $D_{n}=max|F(X)-S_{n}(X)|$
 ]
